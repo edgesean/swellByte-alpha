@@ -6,7 +6,21 @@ const apiSchema = mongoose.Schema({
   swellData: {
     hours: [
       {
+        swellDirection: {
+          dwd: Number,
+          icon: Number,
+          meteo: Number,
+          noaa: Number,
+          sg: Number
+        },
         swellHeight: {
+          dwd: Number,
+          icon: Number,
+          meteo: Number,
+          noaa: Number,
+          sg: Number
+        },
+        swellPeriod: {
           dwd: Number,
           icon: Number,
           meteo: Number,
@@ -18,6 +32,16 @@ const apiSchema = mongoose.Schema({
           dwd: Number,
           icon: Number,
           meteo: Number,
+          noaa: Number,
+          sg: Number
+        },
+        windDirection: {
+          icon: Number,
+          noaa: Number,
+          sg: Number
+        },
+        windDirection: {
+          icon: Number,
           noaa: Number,
           sg: Number
         }

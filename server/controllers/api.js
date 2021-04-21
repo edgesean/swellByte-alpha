@@ -1,6 +1,6 @@
 const ApiData = require('../models/api');
 const fetch = require("node-fetch");
-const apiKey = process.env.APIKEY
+require('dotenv').config();
 
 const getApiData = async (req, res) => {
   try {
@@ -30,14 +30,14 @@ const sendApiData = async (req, res) => {
 }
 
 const apiFetch = async (lat, lng) => {
-const params = 'swellHeight,waveHeight';
+const params = 'swellHeight,swellPeriod,swellDirection,waveHeight,windSpeed,windDirection';
+
 
   return  fetch(`https://api.stormglass.io/v2/weather/point?lat=${lat}&lng=${lng}&params=${params}`, {
   headers: {
-    'Authorization': apiKey
+    'Authorization': process.env.APIKEY
   }
 }).then((response) => response.json()).then((jsonData) => {
-  
   return jsonData;
 });
 
