@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react'
-import { StyleSheet, Text, View, SafeAreaView, ImageBackground, Dimensions } from 'react-native';
+import { TouchableOpacity, StyleSheet, Text, View, SafeAreaView, ImageBackground, Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import SpotPreview from './SpotPreview'
 import { EXPO_API_URL } from '@env';
-const Home = () => {
+const Home = ({ navigation }) => {
 
   const [allData, setAllData] = useState([])
   const [isLoading, setIsLoading] = useState(true)
@@ -35,12 +35,14 @@ const Home = () => {
             <Text style={styles.logoText}>SwellByte</Text>
           </View>
           
-          <View style={styles.spots}>
+          <TouchableOpacity onPress={() => navigation.navigate('SpotDetails', {data: allData})}>
+            <View style={styles.spots}>
             <SpotPreview forecastData={allData}/>
-          </View>
+            </View>
+          </TouchableOpacity>
+          
           
         </View>
-        
         }
 
     </SafeAreaView>
@@ -90,9 +92,6 @@ const styles = StyleSheet.create({
     alignItems: 'center'
 
   }
-
-
-
 
 });
 
