@@ -40,7 +40,7 @@ const apiSchema = mongoose.Schema({
           noaa: Number,
           sg: Number
         },
-        windDirection: {
+        windSpeed: {
           icon: Number,
           noaa: Number,
           sg: Number
