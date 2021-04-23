@@ -2,17 +2,19 @@ const Buoy = require('../models/buoy');
 const puppeteer = require('puppeteer');
 const cron = require('node-cron');
 
-cron.schedule('1 * * * *', async function () {
-  await sendBuoyData();
+cron.schedule('1 * * * *', async () => {
+  sendBuoyData();
+  console.log('cron run')
+  
 })
 
 
 const getBuoyData = async (req, res) => {
   try {
     const waves = await Buoy.find();
-    // if (Date.parse(waves[waves.length-1].timeStamp)-Date.now() > 3600000) {
-    //  await sendBuoyData();
-    // }
+    if (Date.parse(waves[waves.length-1].timeStamp)-Date.now() > 3600000) {
+     await sendBuoyData();
+    }
     res.send(waves[waves.length-1]);
   } catch (error) {
     console.log(error)
@@ -41,12 +43,13 @@ const sendBuoyData = async (req, res) => {
   }
 
   
-  res.send(waveObj)
+  // res.send(waveObj)
   try {
     await Buoy.create(waveObj);
   } catch (error) {
     console.log(error);
   }
+  console.log('cron success')
   browser.close();
 
 }

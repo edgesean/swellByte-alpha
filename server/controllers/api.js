@@ -32,7 +32,6 @@ const sendApiData = async (req, res) => {
 const apiFetch = async (lat, lng) => {
 const params = 'swellHeight,swellPeriod,swellDirection,waveHeight,windSpeed,windDirection';
 
-
   return  fetch(`https://api.stormglass.io/v2/weather/point?lat=${lat}&lng=${lng}&params=${params}`, {
   headers: {
     'Authorization': process.env.APIKEY
@@ -43,21 +42,4 @@ const params = 'swellHeight,swellPeriod,swellDirection,waveHeight,windSpeed,wind
 
 }
 
-
 module.exports = {getApiData, sendApiData};
-
-
-
-// const lat = 41.3842;
-// const lng = 2.2249;
-// const params = 'swellHeight,waveHeight';
-
-// fetch(`https://api.stormglass.io/v2/weather/point?lat=${lat}&lng=${lng}&params=${params}`, {
-//   headers: {
-//     'Authorization': '299e84fa-9aea-11eb-93e5-0242ac130002-299e86f8-9aea-11eb-93e5-0242ac130002'
-//   }
-// }).then((response) => response.json()).then((jsonData) => {
-//   // Do something with response data.
-//   console.log(jsonData)
-// });
-// //41.38421536425972, 2.224931201325092

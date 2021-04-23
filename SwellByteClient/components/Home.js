@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import { TouchableOpacity, StyleSheet, Text, View, SafeAreaView, ImageBackground, Dimensions } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import SpotPreview from './SpotPreview'
 import { EXPO_API_URL } from '@env';
 const Home = ({ navigation }) => {
