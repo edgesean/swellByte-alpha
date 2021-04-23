@@ -98,20 +98,20 @@ const SpotDetails = ({ route, navigation }) => {
 
 
                 <View style={styles.currentLeft}>
-                  <Text>{`${waveHeight[selectedModel]}m`}</Text>
-                  <Text>{`${swellHeight[selectedModel]}m@${swellPeriod[selectedModel]}sec`}</Text>
+                  <Text style={{color: 'white', fontSize: 25, fontWeight: 'bold', width: 95, margin: 5}}>{`${waveHeight[selectedModel]}m`}</Text>
+                  <Text style={{color: 'white', fontSize: 15, fontWeight: 'bold', width: 124, margin: 5}}>{`${swellHeight[selectedModel]}m@${swellPeriod[selectedModel]}sec`}</Text>
                   <View style={{flexDirection: 'row'}}>
-                  <Text>{getCardinalDirection(swellDirection[selectedModel])}</Text>
+                  <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold', width: 20, margin: 5}}>{getCardinalDirection(swellDirection[selectedModel])}</Text>
                   <Text style={{transform: [{rotate: `${swellDirection[selectedModel] + 90}deg`}], color: 'white', fontSize: 20, fontWeight: 'bold', width: 30, margin: 1}} >  ➔  </Text>
                   </View>
                 </View>
 
                 <View style={styles.currentRight}>
 
-                  <Text>{`${Math.round(currentWindSpeed*3.6)}km/h`}</Text>
-                  <Text>{`${Math.round(currentWindSpeed*3.6)+5}km/h`}</Text>
+                  <Text style={{color: 'white', fontSize: 25, fontWeight: 'bold', width: 95, margin: 5}}>{`${Math.round(currentWindSpeed*3.6)}km/h`}</Text>
+                  <Text style={{color: 'white', fontSize: 15, fontWeight: 'bold', width: 65, margin: 5}}>{`${Math.round(currentWindSpeed*3.6)+5}km/h`}</Text>
                   <View style={{flexDirection: 'row'}}>
-                  <Text>{getCardinalDirection(currentWindDir)}</Text>
+                  <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold', width: 20, margin: 5}}>{getCardinalDirection(currentWindDir)}</Text>
                   <Text style={{transform: [{rotate: `${currentWindDir + 90}deg`}], color: 'white', fontSize: 20, fontWeight: 'bold', width: 30, margin: 1}} >  ➔  </Text>
                   </View>
 
@@ -122,7 +122,7 @@ const SpotDetails = ({ route, navigation }) => {
                   
                   <View style={styles.buoy}>
                     <Image source={buoy} style={{width:50, height:50}} />
-                    <Text>{`${buoyData.height}@${buoyData.period}sec`}</Text>
+                    <Text style={{color: 'white', fontSize: 15, fontWeight: 'bold', width: 124, margin: 5}}>{`${buoyData.height}@${buoyData.period}sec`}</Text>
                   </View>
 
                   <View style={styles.button}>
@@ -161,28 +161,31 @@ const windowHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   image: {
     flex: 1,
-    resizeMode: 'cover',  
+    resizeMode: 'cover',
+    color: 'white',  
   },
   safeArea: {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    
+    color: 'white',
 
   },
   currentContainer: {
     flexDirection: 'column',
     width: windowWidth-10,
     height: 190,
-    borderWidth: 2,
+    
     justifyContent: 'flex-start',
     alignItems: 'center',
+    color: 'white',
   },
   wavesAndWind: {
     flexDirection: 'row',
     height: 127,
     width: 367,
-    borderWidth: 2,
+    
+    color: 'white',
 
   },
   currentLeft: {
@@ -192,7 +195,8 @@ const styles = StyleSheet.create({
     height: 123,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 2,
+    
+    color: 'white',
     
 
   },
@@ -203,36 +207,41 @@ const styles = StyleSheet.create({
     height: 123,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 2,
+    
+    color: 'white',
 
   },
   dayContainer: {
     flexDirection: 'row',
     width: windowWidth-10,
     height: 160,
-    borderWidth: 2,
+    
+    color: 'white',
 
   },
   buoyButtonView: {
     flexDirection: 'row',
-    borderWidth: 2,
+    
     width: 366,
     height: 60,
+    color: 'white',
   },
   buoy: {
     flexDirection: 'row',
     flex: 1,
-    borderWidth: 2,
+    
     height: 55,
     width: 20,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    color: 'white',
 
   },
   button: {
     flex: 1,
-    borderWidth: 2,
+    
     height: 55,
     width: 20,
+    color: 'white',
   }
 
 })
