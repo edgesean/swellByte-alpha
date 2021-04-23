@@ -34,11 +34,11 @@ const Home = ({ navigation }) => {
             <Text style={styles.logoText}>SwellByte</Text>
           </View>
           
-          <TouchableOpacity onPress={() => navigation.navigate('SpotDetails', {data: allData})}>
+          {allData.length ? <TouchableOpacity onPress={() => navigation.navigate('SpotDetails', {data: allData})}>
             <View style={styles.spots}>
             <SpotPreview forecastData={allData}/>
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> : null}
           
           
         </View>

@@ -12,9 +12,9 @@ const SpotPreview = ({forecastData}) => {
   let windDir = 0;
   let spotName = 'Bogatell';
   if (forecastData.length) {
-    height = forecastData[currentTime].waveHeight.dwd;
-    period = forecastData[currentTime].swellPeriod.dwd;
-    direction = forecastData[currentTime].swellDirection.dwd;
+    height = forecastData[currentTime].waveHeight.icon;
+    period = forecastData[currentTime].swellPeriod.icon;
+    direction = forecastData[currentTime].swellDirection.icon;
     windSpeed = Math.round(forecastData[currentTime].windSpeed.icon * 3.6);
     windDir = forecastData[currentTime].windDirection.icon;
   }
