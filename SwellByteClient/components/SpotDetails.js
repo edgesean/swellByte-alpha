@@ -142,6 +142,7 @@ const SpotDetails = ({ route, navigation }) => {
               renderItem={({item}) => <DayForecast dayData={item} model={selectedModel}></DayForecast>}
               keyExtractor={item => item[0]._id}
             />
+            <Text></Text>
 
           </SafeAreaView>
       }
@@ -247,6 +248,7 @@ const picker = {
     padding: 5,
     borderWidth: 2,
     borderRadius: 10,
-    borderColor: 'white'
+    borderColor: 'white',
+    textAlign: 'center',
   }
 }

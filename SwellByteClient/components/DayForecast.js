@@ -26,15 +26,18 @@ const DayForecast = ({ dayData, model }) => {
 
       <View style={{ borderBottomColor: 'white', borderBottomWidth: 1, }}/>
 
-      <Text style={{color: 'white', fontSize: 18, margin: 10}}>{`6am | ${sixAm.waveHeight[model] ? sixAm.waveHeight[model] : 'no model data'}m | ${sixAm.swellHeight[model]}m@${sixAm.swellPeriod[model]}  ${getCardinalDirection(sixAm.swellDirection.sg)} | ${Math.round(sixAm.windSpeed[model]*3.6)}km/h`}</Text>
+      <Text style={{color: 'white', fontSize: 18, margin: 10}}>
+        {`6am | ${sixAm.waveHeight[model] ? sixAm.waveHeight[model] : 'no model data'}m | ${
+          sixAm.swellHeight[model]}m@${sixAm.swellPeriod[model]}  ${getCardinalDirection(sixAm.swellDirection.sg)} | ${
+            Math.round(sixAm.windSpeed.sg*3.6)}km/h ${getCardinalDirection(sixAm.windDirection.sg)}`}</Text>
 
       <View style={{ borderBottomColor: 'white', borderBottomWidth: 1, }}/>
 
-      <Text style={{color: 'white', fontSize: 18, margin: 10}}>{`12pm | ${twelve.waveHeight[model]}m | ${twelve.swellHeight[model]}m@${twelve.swellPeriod[model]}  ${twelve.windDirection[model]?getCardinalDirection(twelve.windDirection[model]): `${getCardinalDirection(twelve.swellDirection.sg)}`} | ${Math.round(twelve.windSpeed[model]*3.6)}km/h`}</Text>
+      <Text style={{color: 'white', fontSize: 18, margin: 10}}>{`12pm | ${twelve.waveHeight[model]}m | ${twelve.swellHeight[model]}m@${twelve.swellPeriod[model]}  ${twelve.swellDirection[model]?getCardinalDirection(twelve.swellDirection[model]): `${getCardinalDirection(twelve.swellDirection.sg)}`} | ${Math.round(twelve.windSpeed.sg*3.6)}km/h ${getCardinalDirection(twelve.windDirection.sg)} `}</Text>
 
       <View style={{ borderBottomColor: 'white', borderBottomWidth: 1, }}/>
 
-      <Text style={{color: 'white', fontSize: 18, margin: 10}}>{`6pm | ${sixPm.waveHeight[model]}m | ${sixPm.swellHeight[model]}m@${sixPm.swellPeriod[model]}  E  <- | ${Math.round(sixPm.windSpeed[model]*3.6)}km/h`}</Text>
+      <Text style={{color: 'white', fontSize: 18, margin: 10}}>{`6pm | ${sixPm.waveHeight[model]}m | ${sixPm.swellHeight[model]}m@${sixPm.swellPeriod[model]}  ${sixPm.windDirection[model]?getCardinalDirection(sixPm.windDirection[model]): `${getCardinalDirection(sixPm.windDirection.sg)}`} | ${Math.round(sixPm.windSpeed.sg*3.6)}km/h ${getCardinalDirection(sixPm.windDirection.sg)} `}</Text>
 
       </View> :
       <Text>{`${model} does not supprt this day, try changing to another model`}</Text>
