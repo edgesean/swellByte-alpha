@@ -42,17 +42,13 @@ const SpotDetails = ({ route, navigation }) => {
     let response = await fetch(EXPO_BUOY_DATA);
     let jsonData = await response.json();
     const nowCastTime = forecastData[currentTime];
-    // setHeight(nowCastTime.waveHeight[selectedModel]);
-    // setSwellHeight(nowCastTime.swellHeight[selectedModel]);
-    // setSwellPer(nowCastTime.swellPeriod[selectedModel]);
-    // setDirection(nowCastTime.swellDirection[selectedModel]);
     setMyState({...nowCastTime})
     if (selectedModel === 'dwd' || selectedModel === 'meteo') {
-      setSpeed(nowCastTime.windSpeed.icon);
-      setWindDir(nowCastTime.windDirection.icon);
+      setSpeed(nowCastTime.windSpeed.sg);
+      setWindDir(nowCastTime.windDirection.sg);
     } else {
-      // setWindDir(nowCastTime.windDirection[selectedModel]);
-      // setSpeed(nowCastTime.windSpeed[selectedModel]);
+      setWindDir(nowCastTime.windDirection[selectedModel]);
+      setSpeed(nowCastTime.windSpeed[selectedModel]);
     }
     setDays(dayGenerator(forecastData));
     
@@ -91,7 +87,7 @@ const SpotDetails = ({ route, navigation }) => {
       {isLoading ?
         <Text>Loading...</Text> :
           <SafeAreaView style={styles.safeArea}>
-            {console.log('🤩🤩🤩🤩🤩🤩🤩🤩🤩', daysArr)}
+            
             <View style={styles.currentContainer}>
 
               <View style={styles.wavesAndWind}>
@@ -101,8 +97,8 @@ const SpotDetails = ({ route, navigation }) => {
                   <Text style={{color: 'white', fontSize: 25, fontWeight: 'bold', width: 95, margin: 5}}>{`${waveHeight[selectedModel]}m`}</Text>
                   <Text style={{color: 'white', fontSize: 15, fontWeight: 'bold', width: 124, margin: 5}}>{`${swellHeight[selectedModel]}m@${swellPeriod[selectedModel]}sec`}</Text>
                   <View style={{flexDirection: 'row'}}>
-                  <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold', width: 20, margin: 5}}>{getCardinalDirection(swellDirection[selectedModel])}</Text>
-                  <Text style={{transform: [{rotate: `${swellDirection[selectedModel] + 90}deg`}], color: 'white', fontSize: 20, fontWeight: 'bold', width: 30, margin: 1}} >  ➔  </Text>
+                  <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold', width: 25, margin: 5}}>{getCardinalDirection(swellDirection[selectedModel])}</Text>
+                  <Text style={{transform: [{rotate: `${swellDirection[selectedModel] + 90}deg`}], color: 'white', fontSize: 20, fontWeight: 'bold', width: 20, margin: 1}} > ➔ </Text>
                   </View>
                 </View>
 
@@ -111,8 +107,8 @@ const SpotDetails = ({ route, navigation }) => {
                   <Text style={{color: 'white', fontSize: 25, fontWeight: 'bold', width: 95, margin: 5}}>{`${Math.round(currentWindSpeed*3.6)}km/h`}</Text>
                   <Text style={{color: 'white', fontSize: 15, fontWeight: 'bold', width: 65, margin: 5}}>{`${Math.round(currentWindSpeed*3.6)+5}km/h`}</Text>
                   <View style={{flexDirection: 'row'}}>
-                  <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold', width: 20, margin: 5}}>{getCardinalDirection(currentWindDir)}</Text>
-                  <Text style={{transform: [{rotate: `${currentWindDir + 90}deg`}], color: 'white', fontSize: 20, fontWeight: 'bold', width: 30, margin: 1}} >  ➔  </Text>
+                  <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold', width: 30, margin: 5}}>{getCardinalDirection(currentWindDir)}</Text>
+                  <Text style={{transform: [{rotate: `${currentWindDir + 90}deg`}], color: 'white', fontSize: 20, fontWeight: 'bold', width: 20, margin: 1}} > ➔ </Text>
                   </View>
 
                 </View>
@@ -121,15 +117,14 @@ const SpotDetails = ({ route, navigation }) => {
               <View style={styles.buoyButtonView}>
                   
                   <View style={styles.buoy}>
-                    <Image source={buoy} style={{width:50, height:50}} />
+                    <Image source={buoy} style={{width:45, height:45}} />
                     <Text style={{color: 'white', fontSize: 15, fontWeight: 'bold', width: 124, margin: 5}}>{`${buoyData.height}@${buoyData.period}sec`}</Text>
                   </View>
 
                   <View style={styles.button}>
-                    <RNPickerSelect style={{borderRadius: 10}} value={selectedModel}
+                    <RNPickerSelect style={picker} value={selectedModel}
                       onValueChange={(value) => setModel(value)}
                       items={[
-                          { label: 'dwd', value: 'dwd' },
                           { label: 'icon', value: 'icon' },
                           { label: 'meteo', value: 'meteo' },
                           { label: 'noaa', value: 'noaa' },
@@ -245,3 +240,13 @@ const styles = StyleSheet.create({
   }
 
 })
+
+const picker = {
+  inputIOS: {
+    color: 'white',
+    padding: 5,
+    borderWidth: 2,
+    borderRadius: 10,
+    borderColor: 'white'
+  }
+}

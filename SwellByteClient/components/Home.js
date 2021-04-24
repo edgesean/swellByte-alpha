@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',
+    color: 'white',
   },
   safe: {
     flex: 1,
@@ -67,6 +68,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: windowHeight,
     width: windowWidth,
+    color: 'white',
   },
   image: {
     flex:1,
@@ -79,6 +81,7 @@ const styles = StyleSheet.create({
     padding: 5,
     width: '40%',
     textAlign: 'center',
+    color: 'white',
   },
   logoText: {
     fontSize: 25,
