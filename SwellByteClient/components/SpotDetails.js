@@ -14,19 +14,14 @@ const SpotDetails = ({ route, navigation }) => {
     swellHeight,
     swellPeriod,
     swellDirection,
-    // currentWindSpeed,
-    // currentWindDir,
+
   } = forecastData[currentTime];
   const [buoyData, setBuoy] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [selectedModel, setModel] = useState('icon');
-  // const [currentWaveHeight, setHeight] = useState('');
-  // const [currentSwellHeight, setSwellHeight] = useState('');
-  // const [currentSwellPer, setSwellPer] = useState('');
-  // const [currentSwellDirection, setDirection] = useState('');
+ 
   const [currentWindSpeed, setSpeed] = useState('');
   const [currentWindDir, setWindDir] = useState('');
-  // const [swellDirStr, setSwellStr] = useState('');
   const [daysArr, setDays] = useState([]);
   
   const [myState, setMyState] = useState({
@@ -39,7 +34,7 @@ const SpotDetails = ({ route, navigation }) => {
   })
 
   const buoyFetch = async () => {
-    let response = await fetch(EXPO_BUOY_DATA);
+    let response = await fetch(`http://192.168.1.34:3003/buoy`);
     let jsonData = await response.json();
     const nowCastTime = forecastData[currentTime];
     setMyState({...nowCastTime})
@@ -95,7 +90,7 @@ const SpotDetails = ({ route, navigation }) => {
 
                 <View style={styles.currentLeft}>
                   <Text style={{color: 'white', fontSize: 25, fontWeight: 'bold', width: 95, margin: 5}}>{`${waveHeight[selectedModel]}m`}</Text>
-                  <Text style={{color: 'white', fontSize: 15, fontWeight: 'bold', width: 124, margin: 5}}>{`${swellHeight[selectedModel]}m@${swellPeriod[selectedModel]}sec`}</Text>
+                  <Text style={{color: 'white', fontSize: 15, fontWeight: 'bold', width: 124, margin: 5}}>{`${swellHeight[selectedModel]}m@${Math.round(swellPeriod[selectedModel])}sec`}</Text>
                   <View style={{flexDirection: 'row'}}>
                   <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold', width: 25, margin: 5}}>{getCardinalDirection(swellDirection[selectedModel])}</Text>
                   <Text style={{transform: [{rotate: `${swellDirection[selectedModel] + 90}deg`}], color: 'white', fontSize: 20, fontWeight: 'bold', width: 20, margin: 1}} > ➔ </Text>
@@ -118,7 +113,7 @@ const SpotDetails = ({ route, navigation }) => {
                   
                   <View style={styles.buoy}>
                     <Image source={buoy} style={{width:45, height:45}} />
-                    <Text style={{color: 'white', fontSize: 15, fontWeight: 'bold', width: 124, margin: 5}}>{`${buoyData.height}@${buoyData.period}sec`}</Text>
+                    <Text style={{color: 'white', fontSize: 15, fontWeight: 'bold', width: 124, margin: 5}}>{`${buoyData.height}@${Math.round(+buoyData.period)}sec`}</Text>
                   </View>
 
                   <View style={styles.button}>
@@ -139,7 +134,7 @@ const SpotDetails = ({ route, navigation }) => {
             
               <FlatList
               data={daysArr}
-              renderItem={({item}) => <DayForecast dayData={item} model={selectedModel}></DayForecast>}
+              renderItem={({item}) => item[6].waveHeight[selectedModel]?<DayForecast dayData={item} model={selectedModel}></DayForecast> : null}
               keyExtractor={item => item[0]._id}
             />
             <Text></Text>

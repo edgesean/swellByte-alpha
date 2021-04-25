@@ -8,16 +8,28 @@ const Hour = ({hourData, model}) => {
     const directions = ['↑', '↗', '→', '↘', '↓', '↙', '←', '↖'];
     return directions[Math.round(angle / 45) % 8];
   }
+  let windModel;
+  if (model === 'meteo') {
+    windModel = 'sg';
+  } else windModel = model;
+  let waveDirModel;
+  if (hourData.swellDirection[model]) {
+    waveDirModel = model
+  } else waveDirModel = 'sg'
 
   return (
-    <View style={styles.hourContainer}>
-      <View style={styles.viewCont}><Text style={styles.hourT}>{`${time} |`}</Text></View>
-      <View style={styles.viewCont}><Text style={styles.swellH}>{`${hourData.swellHeight[model]}@`}</Text></View>
-      <View style={styles.viewCont}><Text style={styles.swellP}>{`${hourData.swellPeriod[model]}sec`}</Text></View>
-      <View style={styles.viewCont}><Text style={styles.swellP}>{`${getCardinalDirection(hourData.swellDirection.icon+180)} |`}</Text></View>
-      <View style={styles.viewCont}><Text style={styles.swellP}>{`${hourData.windSpeed[model]}k/h`}</Text></View>
-      <View style={[styles.viewCont]}><Text style={styles.swellP}>{`${getCardinalDirection(hourData.windDirection.icon)}`}</Text></View>
+    <View>
+    { 
+      hourData.swellHeight[model] ? <View style={styles.hourContainer}>
+      
+      <View style={styles.viewCont}><Text style={styles.hourT}>{`${time} `}</Text></View>
+      <View style={styles.swellCont}><Text style={styles.swellH}>
+        {`${hourData.swellHeight[model]}m@${Math.round(hourData.swellPeriod[model])}sec   ${getCardinalDirection(hourData.swellDirection[waveDirModel]+180)}  `}</Text></View>
+      <View style={styles.windCont}><Text style={styles.swellP}>{`${Math.round(hourData.windSpeed[windModel]*2.236)}k/h ${getCardinalDirection(hourData.windDirection[windModel]+180)}`}</Text></View>
+    </View>
+    : null
 
+    }
     </View>
   )
 }
@@ -31,36 +43,62 @@ const styles = StyleSheet.create({
     padding: 2,
     justifyContent: 'center',
     alignItems: 'center',
+    borderTopWidth: 1,
+    borderTopColor: 'white'
   },
   viewCont: {
     flex: 1,
     width: 25,
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'center'
+  },
+  swellCont: {
+    flex: 1,
+    width: 130,
+    alignItems: 'center'
+
+  },
+  windCont: {
+    flex: 1,
+    alignItems: 'flex-end',
+    paddingEnd: 10
+
   },
   hourT: {
     color: 'white',
     padding: 1,
-    fontSize: normalizeUnits(15),
+    fontSize: 18,
+    fontWeight: '700',
     
 
   },
   waveH: {
     color: 'white',
     padding: 1,
-    fontSize: normalizeUnits(15),
+    fontSize: 18,
+    fontWeight: '700',
     
   },
   swellH: {
     color: 'white',
     padding: 1,
-    fontSize: normalizeUnits(15),
+    fontSize: 18,
+    fontWeight: '700',
+    width: 150
 
   },
   swellP: {
     color: 'white',
     padding: 1,
-    fontSize: normalizeUnits(15),
+    fontSize: 18,
+    fontWeight: '700',
 
+  },
+  swellDir: {
+    width: 30,
+    color: 'white',
+    padding: 1,
+    fontSize: 18,
+    fontWeight: '700',
   }
 })

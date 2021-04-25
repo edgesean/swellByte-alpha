@@ -9,7 +9,7 @@ const Home = ({ navigation }) => {
   const image = { uri: 'https://i.imgur.com/clZpR3S.png'}
 
   const waveDataFetch = async () => {
-    let response = await fetch(EXPO_API_URL);
+    let response = await fetch(`http://192.168.1.34:3003/getApiData`);
     let json = await response.json();
     setAllData(json[json.length-1].swellData.hours);
     setTimeout(() => {

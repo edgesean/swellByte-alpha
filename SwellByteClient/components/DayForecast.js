@@ -23,7 +23,7 @@ const DayForecast = ({ dayData, model }) => {
   return (
     <View style={styles.container}>
 
-      <View>
+      <View style={{borderBottomWidth: 1, borderBottomColor: 'white'}}>
         <Text style={{color: 'white', fontSize: 18, margin: 10,}}>{day}</Text>
 
         {hoursArr.map((hour) => <Hour key={hour.time} hourData={hour} model={model}></Hour>)}
