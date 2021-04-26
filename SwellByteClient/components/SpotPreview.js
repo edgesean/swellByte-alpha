@@ -19,9 +19,6 @@ const SpotPreview = ({forecastData}) => {
     windDir = forecastData[currentTime].windDirection.icon;
   }
   
-
-  
-  
   return (
     <View style={styles.container}>
 

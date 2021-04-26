@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { TouchableOpacity, StyleSheet, Text, View, SafeAreaView, ImageBackground, Dimensions, Button, Image, FlatList } from 'react-native';
+import { TouchableOpacity, StyleSheet, Text, View, SafeAreaView, ImageBackground, Dimensions, Button, Image, FlatList, ScrollView } from 'react-native';
 import { EXPO_BUOY_DATA } from '@env';
 import DayForecast from './DayForecast';
 import buoy from '../images/buoy-icon-28.png'
@@ -19,7 +19,6 @@ const SpotDetails = ({ route, navigation }) => {
   const [buoyData, setBuoy] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [selectedModel, setModel] = useState('icon');
- 
   const [currentWindSpeed, setSpeed] = useState('');
   const [currentWindDir, setWindDir] = useState('');
   const [daysArr, setDays] = useState([]);
@@ -34,7 +33,7 @@ const SpotDetails = ({ route, navigation }) => {
   })
 
   const buoyFetch = async () => {
-    let response = await fetch(`http://192.168.1.34:3003/buoy`);
+    let response = await fetch(EXPO_BUOY_DATA);
     let jsonData = await response.json();
     const nowCastTime = forecastData[currentTime];
     setMyState({...nowCastTime})
@@ -45,8 +44,7 @@ const SpotDetails = ({ route, navigation }) => {
       setWindDir(nowCastTime.windDirection[selectedModel]);
       setSpeed(nowCastTime.windSpeed[selectedModel]);
     }
-    setDays(dayGenerator(forecastData));
-    
+    setDays(dayGenerator(forecastData));    
     setBuoy(jsonData);
     setTimeout(() => {
       setIsLoading(false)
@@ -54,9 +52,6 @@ const SpotDetails = ({ route, navigation }) => {
     return
   }
  
-
-  
-
   const dayGenerator = (input) => {
     const allData = [...input];
     const res = [];
@@ -66,7 +61,6 @@ const SpotDetails = ({ route, navigation }) => {
     return res;
   }
   
-
   useEffect(() => {
     buoyFetch()
   }, [])
@@ -137,7 +131,9 @@ const SpotDetails = ({ route, navigation }) => {
               renderItem={({item}) => item[6].waveHeight[selectedModel]?<DayForecast dayData={item} model={selectedModel}></DayForecast> : null}
               keyExtractor={item => item[0]._id}
             />
-            <Text></Text>
+            
+              
+            <Text>-</Text>
 
           </SafeAreaView>
       }

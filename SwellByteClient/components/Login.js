@@ -6,19 +6,21 @@ const Login = ({ navigation }) => {
   const image = { uri: 'https://i.imgur.com/clZpR3S.png'}
   return (
     <ImageBackground source={image} style={styles.image}>
-      <View style={styles.logoView}><Text style={styles.logoText}>SwellByte</Text>
-      <Image source={swellLogo} style={{width:107, height:99}}/>
-      </View>
-
-
-
-
-
-      <TouchableOpacity onPress={() => navigation.navigate('Home')}>
       <View>
-        <Text>Sign In</Text>
+          <View style={styles.logoView}><Text style={styles.logoText}>SwellByte</Text>
+        <Image source={swellLogo} style={{width:107, height:99}}/>
+        </View>
+
+        <View style={styles.login}>
+          <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+        <View style={styles.signIn}>
+          <Text style={{color: 'white', fontSize: 18, fontWeight: 'bold'}}>Sign In</Text>
+        </View>
+        </TouchableOpacity>
+        </View>
       </View>
-      </TouchableOpacity>
+      
+      
 
     </ImageBackground>
   )
@@ -31,20 +33,34 @@ const styles = StyleSheet.create({
   image: {
     flex:1,
     resizeMode: 'cover',
-    justifyContent: 'center'
   },
   logoView: {
-    flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    marginTop: 25
+    marginTop: 25,
+ 
+    
   },
   logoText: {
     color: 'white',
     fontSize: 30,
     fontWeight: 'bold',
     paddingBottom: 20,
-    
+  },
+  login: {
+    color: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 200,
+  },
+  signIn: {
+    borderRadius: 15,
+    borderWidth: 3,
+    borderColor: 'white',
+    width: 200,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
 
   }
 

@@ -24,7 +24,7 @@ const Hour = ({hourData, model}) => {
       
       <View style={styles.viewCont}><Text style={styles.hourT}>{`${time} `}</Text></View>
       <View style={styles.swellCont}><Text style={styles.swellH}>
-        {`${hourData.swellHeight[model]}m@${Math.round(hourData.swellPeriod[model])}sec   ${getCardinalDirection(hourData.swellDirection[waveDirModel]+180)}  `}</Text></View>
+        {`${hourData.swellHeight[model]}m @${Math.round(hourData.swellPeriod[model])}sec   ${getCardinalDirection(hourData.swellDirection[waveDirModel]+180)}  `}</Text></View>
       <View style={styles.windCont}><Text style={styles.swellP}>{`${Math.round(hourData.windSpeed[windModel]*2.236)}k/h ${getCardinalDirection(hourData.windDirection[windModel]+180)}`}</Text></View>
     </View>
     : null
