@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { TouchableOpacity, StyleSheet, Text, View, SafeAreaView, ImageBackground, Dimensions, Button, Image, FlatList } from 'react-native';
+import { TouchableOpacity, StyleSheet, Text, View, SafeAreaView, ImageBackground, Dimensions, Button, Image, FlatList, ScrollView } from 'react-native';
 import { EXPO_BUOY_DATA } from '@env';
 import DayForecast from './DayForecast';
 import buoy from '../images/buoy-icon-28.png'
@@ -14,19 +14,13 @@ const SpotDetails = ({ route, navigation }) => {
     swellHeight,
     swellPeriod,
     swellDirection,
-    // currentWindSpeed,
-    // currentWindDir,
+
   } = forecastData[currentTime];
   const [buoyData, setBuoy] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [selectedModel, setModel] = useState('icon');
-  // const [currentWaveHeight, setHeight] = useState('');
-  // const [currentSwellHeight, setSwellHeight] = useState('');
-  // const [currentSwellPer, setSwellPer] = useState('');
-  // const [currentSwellDirection, setDirection] = useState('');
   const [currentWindSpeed, setSpeed] = useState('');
   const [currentWindDir, setWindDir] = useState('');
-  // const [swellDirStr, setSwellStr] = useState('');
   const [daysArr, setDays] = useState([]);
   
   const [myState, setMyState] = useState({
@@ -50,8 +44,7 @@ const SpotDetails = ({ route, navigation }) => {
       setWindDir(nowCastTime.windDirection[selectedModel]);
       setSpeed(nowCastTime.windSpeed[selectedModel]);
     }
-    setDays(dayGenerator(forecastData));
-    
+    setDays(dayGenerator(forecastData));    
     setBuoy(jsonData);
     setTimeout(() => {
       setIsLoading(false)
@@ -59,9 +52,6 @@ const SpotDetails = ({ route, navigation }) => {
     return
   }
  
-
-  
-
   const dayGenerator = (input) => {
     const allData = [...input];
     const res = [];
@@ -71,7 +61,6 @@ const SpotDetails = ({ route, navigation }) => {
     return res;
   }
   
-
   useEffect(() => {
     buoyFetch()
   }, [])
@@ -95,7 +84,7 @@ const SpotDetails = ({ route, navigation }) => {
 
                 <View style={styles.currentLeft}>
                   <Text style={{color: 'white', fontSize: 25, fontWeight: 'bold', width: 95, margin: 5}}>{`${waveHeight[selectedModel]}m`}</Text>
-                  <Text style={{color: 'white', fontSize: 15, fontWeight: 'bold', width: 124, margin: 5}}>{`${swellHeight[selectedModel]}m@${swellPeriod[selectedModel]}sec`}</Text>
+                  <Text style={{color: 'white', fontSize: 15, fontWeight: 'bold', width: 124, margin: 5}}>{`${swellHeight[selectedModel]}m@${Math.round(swellPeriod[selectedModel])}sec`}</Text>
                   <View style={{flexDirection: 'row'}}>
                   <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold', width: 25, margin: 5}}>{getCardinalDirection(swellDirection[selectedModel])}</Text>
                   <Text style={{transform: [{rotate: `${swellDirection[selectedModel] + 90}deg`}], color: 'white', fontSize: 20, fontWeight: 'bold', width: 20, margin: 1}} > ➔ </Text>
@@ -118,7 +107,7 @@ const SpotDetails = ({ route, navigation }) => {
                   
                   <View style={styles.buoy}>
                     <Image source={buoy} style={{width:45, height:45}} />
-                    <Text style={{color: 'white', fontSize: 15, fontWeight: 'bold', width: 124, margin: 5}}>{`${buoyData.height}@${buoyData.period}sec`}</Text>
+                    <Text style={{color: 'white', fontSize: 15, fontWeight: 'bold', width: 124, margin: 5}}>{`${buoyData.height}@${Math.round(+buoyData.period)}sec`}</Text>
                   </View>
 
                   <View style={styles.button}>
@@ -139,9 +128,12 @@ const SpotDetails = ({ route, navigation }) => {
             
               <FlatList
               data={daysArr}
-              renderItem={({item}) => <DayForecast dayData={item} model={selectedModel}></DayForecast>}
+              renderItem={({item}) => item[6].waveHeight[selectedModel]?<DayForecast dayData={item} model={selectedModel}></DayForecast> : null}
               keyExtractor={item => item[0]._id}
             />
+            
+              
+            <Text>-</Text>
 
           </SafeAreaView>
       }
@@ -247,6 +239,7 @@ const picker = {
     padding: 5,
     borderWidth: 2,
     borderRadius: 10,
-    borderColor: 'white'
+    borderColor: 'white',
+    textAlign: 'center',
   }
 }

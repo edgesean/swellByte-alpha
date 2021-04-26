@@ -1,6 +1,7 @@
 import React from 'react'
-import { StyleSheet, Text, View, Dimensions } from 'react-native'
+import { StyleSheet, Text, View, Dimensions, FlatList } from 'react-native'
 import moment from 'moment'
+import Hour from './Hour';
 
 const DayForecast = ({ dayData, model }) => {
   const swellDirection = dayData[0];
@@ -14,31 +15,20 @@ const DayForecast = ({ dayData, model }) => {
     return directions[Math.round(angle / 45) % 8];
   }
 
-
+  const hoursArr = [dayData[6], dayData[12], dayData[18]]
+  
 
   
 
   return (
     <View style={styles.container}>
-      { twelve.waveHeight[model] ? 
-      <View>
+
+      <View style={{borderBottomWidth: 1, borderBottomColor: 'white'}}>
         <Text style={{color: 'white', fontSize: 18, margin: 10,}}>{day}</Text>
 
-      <View style={{ borderBottomColor: 'white', borderBottomWidth: 1, }}/>
+        {hoursArr.map((hour) => <Hour key={hour.time} hourData={hour} model={model}></Hour>)}
+        </View>
 
-      <Text style={{color: 'white', fontSize: 18, margin: 10}}>{`6am | ${sixAm.waveHeight[model] ? sixAm.waveHeight[model] : 'no model data'}m | ${sixAm.swellHeight[model]}m@${sixAm.swellPeriod[model]}  ${getCardinalDirection(sixAm.swellDirection.sg)} | ${Math.round(sixAm.windSpeed[model]*3.6)}km/h`}</Text>
-
-      <View style={{ borderBottomColor: 'white', borderBottomWidth: 1, }}/>
-
-      <Text style={{color: 'white', fontSize: 18, margin: 10}}>{`12pm | ${twelve.waveHeight[model]}m | ${twelve.swellHeight[model]}m@${twelve.swellPeriod[model]}  ${twelve.windDirection[model]?getCardinalDirection(twelve.windDirection[model]): `${getCardinalDirection(twelve.swellDirection.sg)}`} | ${Math.round(twelve.windSpeed[model]*3.6)}km/h`}</Text>
-
-      <View style={{ borderBottomColor: 'white', borderBottomWidth: 1, }}/>
-
-      <Text style={{color: 'white', fontSize: 18, margin: 10}}>{`6pm | ${sixPm.waveHeight[model]}m | ${sixPm.swellHeight[model]}m@${sixPm.swellPeriod[model]}  E  <- | ${Math.round(sixPm.windSpeed[model]*3.6)}km/h`}</Text>
-
-      </View> :
-      <Text>{`${model} does not supprt this day, try changing to another model`}</Text>
-      }
       
     </View>
   )
