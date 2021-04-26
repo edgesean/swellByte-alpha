@@ -5,7 +5,8 @@ import moment, { normalizeUnits } from 'moment'
 const Hour = ({hourData, model}) => {
   const time = moment(Date.parse(hourData.time)-7200000).format('h a')
   function getCardinalDirection(angle) {
-    const directions = ['↑', '↗', '→', '↘', '↓', '↙', '←', '↖'];
+    const directions = ['↓', '↙', '←', '↖', '↑', '↗', '→', '↘'];
+    //'↓', '↙', '←', '↖', '↑', '↗', '→', '↘'
     return directions[Math.round(angle / 45) % 8];
   }
   let windModel;
@@ -26,8 +27,8 @@ const Hour = ({hourData, model}) => {
       <View style={styles.hourCont}><Text style={styles.hourT}>{`${time}`}</Text></View>
       <View style={styles.viewCont}><Text style={styles.heightT}>{`${hourData.waveHeight.sg.toFixed(1)}m`}</Text></View>
       <View style={styles.swellCont}><Text style={styles.swellH}>
-        {` ${hourData.swellHeight[model].toFixed(1)}m @${Math.round(hourData.swellPeriod[model])}sec   ${getCardinalDirection(hourData.swellDirection[waveDirModel]+180)}  `}</Text></View>
-      <View style={styles.windCont}><Text style={styles.swellP}>{`${Math.round(hourData.windSpeed[windModel]*2.236)}k/h ${getCardinalDirection(hourData.windDirection[windModel]+180)}`}</Text></View>
+        {` ${hourData.swellHeight[model].toFixed(1)}m @${Math.round(hourData.swellPeriod[model])}sec   ${getCardinalDirection(hourData.swellDirection[waveDirModel])}`}</Text></View>
+      <View style={styles.windCont}><Text style={styles.swellP}>{`${Math.round(hourData.windSpeed[windModel]*2.236)}k/h ${getCardinalDirection(hourData.windDirection[windModel])}`}</Text></View>
     </View>
     : null
 
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
   hourT: {
     color: 'white',
     padding: 1,
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: '700',
     maxWidth: 70
   
@@ -83,7 +84,7 @@ const styles = StyleSheet.create({
   heightT: {
     color: 'white',
     padding: 1,
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: '700',
     maxWidth: 70
   
@@ -91,14 +92,14 @@ const styles = StyleSheet.create({
   waveH: {
     color: 'white',
     padding: 1,
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: '700',
     
   },
   swellH: {
     color: 'white',
     padding: 1,
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: '700',
     width: 150
 
@@ -106,7 +107,7 @@ const styles = StyleSheet.create({
   swellP: {
     color: 'white',
     padding: 1,
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: '700',
 
   },
@@ -114,7 +115,7 @@ const styles = StyleSheet.create({
     width: 30,
     color: 'white',
     padding: 1,
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: '700',
   }
 })

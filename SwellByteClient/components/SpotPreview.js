@@ -1,9 +1,16 @@
 import React, {useState, useEffect} from 'react'
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
-
+import { StyleSheet, Text, View, SafeAreaView, ImageBackground } from 'react-native';
+import Hampton from '../images/hampotn1.png'
+import Vilassar from '../images/vilssar.png'
 
 const SpotPreview = ({forecastData, name}) => {
 
+  let image = {uri: 'https://www.barcelona.cat/sites/all/static/platges/clabsa/camara6.jpg'}
+  if (name === 'Bogatell') {
+    image.uri = 'https://www.barcelona.cat/sites/all/static/platges/clabsa/camara6.jpg'
+  } else if (name === 'Vilassar') {
+    image = Vilassar
+  } else image = Hampton
   const currentTime = new Date().getHours();
   let height = 0;
   let period = 0;
@@ -20,34 +27,33 @@ const SpotPreview = ({forecastData, name}) => {
   }
   
   return (
-    <View style={styles.container}>
 
+
+        <View style={styles.container}>
+    <ImageBackground source={image} style={styles.image} imageStyle={{ borderRadius: 5, overflow: 'hidden'}}>
+
+          
+            <Text style={styles.title} >{spotName}</Text>
+        
+
+          <View style={styles.forecastFlex}>
+
+            <View style={styles.waveContainer}>
+              <Text style={styles.text}>{`${height.toFixed(1)} m`}</Text>
+              <Text style={{transform: [{rotate: `${direction+90}deg`}], color: 'white', fontSize: 30, fontWeight: 'bold', width: 30}} >➔</Text>
+            </View>
+
+            <View style={styles.windContainer}>
+                <Text style={styles.text}>{`${windSpeed.toFixed()} km/h`} </Text>
+
+                <Text style={{transform: [{rotate: `${windDir}deg`}], color: 'white', fontSize: 30, fontWeight: 'bold', width: 30}} >➔</Text>
+            </View>
+
+          </View>     
       
-        <Text style={styles.title} >{spotName}</Text>
-     
-
-      <View style={styles.forecastFlex}>
-
-        <View style={styles.waveContainer}>
-          <Text style={styles.text}>{`${height} m`}</Text>
-          <Text style={{transform: [{rotate: `${direction+90}deg`}], color: 'white', fontSize: 30, fontWeight: 'bold', width: 30}} >➔</Text>
+    </ImageBackground>
         </View>
 
-        <View style={styles.windContainer}>
-            <Text style={styles.text}>{`${windSpeed} km/h`} </Text>
-
-            <Text style={{transform: [{rotate: `${windDir}deg`}], color: 'white', fontSize: 30, fontWeight: 'bold', width: 30}} >➔</Text>
-        </View>
-
-      </View>     
-
-      
-
-      
-      
-      
-      
-    </View>
   )
 }
 
@@ -79,6 +85,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: 'white',
+    marginLeft: 5
 
   },
   forecastFlex: {
@@ -103,8 +110,18 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     width: '50%',
+    marginEnd: 15,
 
   },
+  image: {
+    height: 150,
+    width: 310,
+    // borderRadius: 15,
+    overflow: 'hidden',
+    // borderWidth: 2,
+    // borderColor: 'white',
+    // borderRadius: 5,
+  }
 
   
 });

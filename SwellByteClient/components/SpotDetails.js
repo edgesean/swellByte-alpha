@@ -18,7 +18,7 @@ const SpotDetails = ({ route, navigation }) => {
   } = forecastData[currentTime];
   const [buoyData, setBuoy] = useState('');
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedModel, setModel] = useState('icon');
+  const [selectedModel, setModel] = useState('sg');
   const [currentWindSpeed, setSpeed] = useState('');
   const [currentWindDir, setWindDir] = useState('');
   const [daysArr, setDays] = useState([]);
@@ -66,7 +66,8 @@ const SpotDetails = ({ route, navigation }) => {
   }, [])
 
   function getCardinalDirection(angle) {
-      const directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+      const directions = ['N↓', 'NE↙', 'E←', 'SE↖', 'S↑', 'SW↗', 'W→', 'NW↘'];
+      //'N↑', 'NE↗', 'E→', 'SE↘', 'S↓', 'SW↙', 'W←', 'NW↖'
       return directions[Math.round(angle / 45) % 8];
     }
     // console.log(daysArr)
@@ -75,7 +76,7 @@ const SpotDetails = ({ route, navigation }) => {
     <ImageBackground source={image} style={styles.image}>
       <SafeAreaView>
       {isLoading ?
-        <Text>Loading...</Text> :
+        <Text></Text> :
           <SafeAreaView style={styles.safeArea}>
             
             <View style={styles.currentContainer}>
@@ -87,8 +88,8 @@ const SpotDetails = ({ route, navigation }) => {
                   <Text style={{color: 'white', fontSize: 25, fontWeight: 'bold', width: 95, margin: 5}}>{`${waveHeight[selectedModel].toFixed(1)}m`}</Text>
                   <Text style={{color: 'white', fontSize: 15, fontWeight: 'bold', width: 124, margin: 5}}>{`${swellHeight[selectedModel]}m@${Math.round(swellPeriod[selectedModel])}sec`}</Text>
                   <View style={{flexDirection: 'row'}}>
-                  <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold', width: 35, margin: 5}}>{getCardinalDirection(swellDirection[selectedModel])}</Text>
-                  <Text style={{transform: [{rotate: `${swellDirection[selectedModel]+90}deg`}], color: 'white', fontSize: 20, fontWeight: 'bold', width: 20, margin: 1}} > ➔ </Text>
+                  <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold', width: 65, margin: 5}}>{getCardinalDirection(swellDirection[selectedModel])}</Text>
+                  {/* <Text style={{transform: [{rotate: `${swellDirection[selectedModel]+90}deg`}], color: 'white', fontSize: 20, fontWeight: 'bold', width: 20, margin: 1}} > ➔ </Text> */}
                   </View>
                 </View>
 
@@ -97,8 +98,8 @@ const SpotDetails = ({ route, navigation }) => {
                   <Text style={{color: 'white', fontSize: 25, fontWeight: 'bold', width: 95, margin: 5}}>{`${Math.round(currentWindSpeed*3.6)}km/h`}</Text>
                   <Text style={{color: 'white', fontSize: 15, fontWeight: 'bold', width: 65, margin: 5}}>{`${Math.round(currentWindSpeed*3.6)+5}km/h`}</Text>
                   <View style={{flexDirection: 'row'}}>
-                  <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold', width: 30, margin: 5}}>{getCardinalDirection(currentWindDir-90)}</Text>
-                  <Text style={{transform: [{rotate: `${currentWindDir }deg`}], color: 'white', fontSize: 20, fontWeight: 'bold', width: 20, margin: 1}} > ➔ </Text>
+                  <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold', width: 60, margin: 5}}>{getCardinalDirection(currentWindDir-90)}</Text>
+                  {/* <Text style={{transform: [{rotate: `${currentWindDir }deg`}], color: 'white', fontSize: 20, fontWeight: 'bold', width: 20, margin: 1}} > ➔ </Text> */}
                   </View>
 
                 </View>
@@ -118,7 +119,7 @@ const SpotDetails = ({ route, navigation }) => {
                           { label: 'icon', value: 'icon' },
                           { label: 'meteo', value: 'meteo' },
                           { label: 'noaa', value: 'noaa' },
-                          { label: 'sg', value: 'sg' },
+                          { label: 'SwellByte', value: 'sg' },
                       ]}
                     />
                   </View>
@@ -228,10 +229,10 @@ const styles = StyleSheet.create({
   },
   button: {
     flex: 1,
-    
     height: 55,
     width: 20,
     color: 'white',
+    
   },
   flatListCont: {
     marginTop: 5,
@@ -244,9 +245,11 @@ const picker = {
   inputIOS: {
     color: 'white',
     padding: 5,
-    borderWidth: 2,
+    fontSize: 15,
+    fontWeight: 'bold',
     borderRadius: 10,
     borderColor: 'white',
     textAlign: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.45)',
   }
 }

@@ -6,6 +6,7 @@ const Home = ({ navigation }) => {
 
   const [bcnData, setBcnData] = useState([])
   const [maresmeData, setMaresme] = useState([])
+  const [nhData, setNh] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const image = { uri: 'https://i.imgur.com/clZpR3S.png'}
 
@@ -13,6 +14,16 @@ const Home = ({ navigation }) => {
     let response = await fetch(EXPO_API_URL);
     let json = await response.json();
     setBcnData(json[json.length-1].swellData.hours);
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 300)   
+    return
+  }
+
+  const NhDataFetch = async () => {
+    let response = await fetch('http://192.168.1.169:3003/getNh');
+    let json = await response.json();
+    setNh(json[json.length-1].swellData.hours);
     setTimeout(() => {
       setIsLoading(false)
     }, 300)   
@@ -32,9 +43,11 @@ const Home = ({ navigation }) => {
   useEffect(() => {
     BCNwaveDataFetch()
     MaresmeDataFetch()
+    NhDataFetch()
   }, [])
 
   return (
+    
     <ImageBackground source={image} style={styles.image}>
     <SafeAreaView  style={styles.safe}>
       
@@ -52,7 +65,10 @@ const Home = ({ navigation }) => {
              </TouchableOpacity>
              <TouchableOpacity onPress={() => navigation.navigate('SpotDetails', {data: maresmeData})}> 
             <SpotPreview forecastData={maresmeData} name={'Vilassar'}/>
-             </TouchableOpacity>  
+             </TouchableOpacity>
+             <TouchableOpacity onPress={() => navigation.navigate('SpotDetails', {data: nhData})}> 
+            <SpotPreview forecastData={nhData} name={'Hampton'}/>
+             </TouchableOpacity>    
             </View> : null}
                    
         </View>
@@ -97,6 +113,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   logoText: {
+    marginTop: 10,
     fontSize: 25,
     fontWeight: 'bold',
     color: 'white',

@@ -1,7 +1,18 @@
 const ApiData = require('../models/api');
 const ApiMaresme = require('../models/apiMaresme');
+const ApiNh = require('../models/apiNh');
 const fetch = require("node-fetch");
+const cron = require('node-cron');
 require('dotenv').config();
+
+cron.schedule('0 */4 * * *', async () => {
+  loadApiMaresme();
+  loadNhApi();
+  sendApiData();
+
+  console.log('cron run api')
+  
+})
 
 const getApiData = async (req, res) => {
   try {
@@ -57,6 +68,30 @@ const sendApiData = async (req, res) => {
     }
   }
 
+  const loadNhApi = async (req, res) => {
+    const waveData = await apiFetch(42.9110, -70.6022)
+    const apiDataObj = {
+      swellData: waveData,
+      timeStamp: Date.now()
+    }  
+    try {
+      await ApiNh.create(apiDataObj)
+      res.send('worked')
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const getApiNh = async (req, res) => {
+    try {
+      const waveData = await ApiNh.find();
+      res.send(waveData);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
 const apiFetch = async (lat, lng) => {
 const params = 'swellHeight,swellPeriod,swellDirection,waveHeight,windSpeed,windDirection';
 
@@ -70,4 +105,4 @@ const params = 'swellHeight,swellPeriod,swellDirection,waveHeight,windSpeed,wind
 
 }
 
-module.exports = {getApiData, sendApiData, loadApiMaresme, getApiMaresme};
+module.exports = {getApiData, sendApiData, loadApiMaresme, getApiMaresme, loadNhApi, getApiNh};

@@ -8,6 +8,8 @@ router.get('/loadApi', api.sendApiData);
 router.get('/getApiData', api.getApiData);
 router.get('/loadMaresme', api.loadApiMaresme);
 router.get('/getApiMaresme', api.getApiMaresme);
+router.get('/loadNh', api.loadNhApi);
+router.get('/getNh', api.getApiNh)
 
 
 
