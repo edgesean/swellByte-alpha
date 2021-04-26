@@ -27,6 +27,11 @@ const Login = ({ navigation }) => {
           <Text style={{color: 'white', fontSize: 18, fontWeight: 'bold'}}>Sign In</Text>
         </View>
         </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Home')}>  
+        <View style={styles.noAcnt}>
+          <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold'}}>continue without account</Text>
+        </View>
+        </TouchableOpacity>
         </View>
       </View>
       
@@ -97,6 +102,14 @@ const styles = StyleSheet.create({
   inputText: {
     color: 'gray',
     textAlign: 'center',
+  },
+  noAcnt: {
+    borderColor: 'white',
+    width: 200,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 10,
   }
 
 
