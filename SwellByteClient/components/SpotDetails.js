@@ -83,7 +83,7 @@ const SpotDetails = ({ route, navigation }) => {
 
 
                 <View style={styles.currentLeft}>
-                  <Text style={{color: 'white', fontSize: 25, fontWeight: 'bold', width: 95, margin: 5}}>{`${waveHeight[selectedModel]}m`}</Text>
+                  <Text style={{color: 'white', fontSize: 25, fontWeight: 'bold', width: 95, margin: 5}}>{`${waveHeight[selectedModel].toFixed(1)}m`}</Text>
                   <Text style={{color: 'white', fontSize: 15, fontWeight: 'bold', width: 124, margin: 5}}>{`${swellHeight[selectedModel]}m@${Math.round(swellPeriod[selectedModel])}sec`}</Text>
                   <View style={{flexDirection: 'row'}}>
                   <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold', width: 25, margin: 5}}>{getCardinalDirection(swellDirection[selectedModel])}</Text>

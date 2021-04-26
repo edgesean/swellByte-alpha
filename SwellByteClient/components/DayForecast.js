@@ -16,9 +16,6 @@ const DayForecast = ({ dayData, model }) => {
   }
 
   const hoursArr = [dayData[6], dayData[12], dayData[18]]
-  
-
-  
 
   return (
     <View style={styles.container}>
@@ -28,7 +25,6 @@ const DayForecast = ({ dayData, model }) => {
 
         {hoursArr.map((hour) => <Hour key={hour.time} hourData={hour} model={model}></Hour>)}
         </View>
-
       
     </View>
   )

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { TouchableOpacity, StyleSheet, Text, View, SafeAreaView, ImageBackground, Dimensions, Image } from 'react-native';
+import { TouchableOpacity, StyleSheet, Text, View, SafeAreaView, ImageBackground, Dimensions, Image, TextInput } from 'react-native';
 import swellLogo from '../images/wave.png'
 
 const Login = ({ navigation }) => {
@@ -12,7 +12,17 @@ const Login = ({ navigation }) => {
         </View>
 
         <View style={styles.login}>
-          <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+          
+            <View>
+              <View style={styles.emailCont}>
+                <TextInput style={styles.inputText} autoCorrect={false} placeholder="Email"/>
+              </View>
+              <View style={styles.passCont}>
+                <TextInput secureTextEntry={true} style={styles.inputText}  placeholder="Password"/>
+              </View>
+            </View>
+
+          <TouchableOpacity onPress={() => navigation.navigate('Home')}>  
         <View style={styles.signIn}>
           <Text style={{color: 'white', fontSize: 18, fontWeight: 'bold'}}>Sign In</Text>
         </View>
@@ -61,7 +71,33 @@ const styles = StyleSheet.create({
     height: 40,
     justifyContent: 'center',
     alignItems: 'center',
+    margin: 10,
+  },
+  emailCont: {
+    borderRadius: 10,
+    borderWidth: 3,
+    borderColor: 'white',
+    width: 300,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 10
 
+  },
+  passCont: { 
+    borderRadius: 10,
+    borderWidth: 3,
+    borderColor: 'white',
+    width: 300,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 10
+  }, 
+  inputText: {
+    color: 'gray',
+    textAlign: 'center',
   }
+
 
 });

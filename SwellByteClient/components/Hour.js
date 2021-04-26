@@ -16,15 +16,17 @@ const Hour = ({hourData, model}) => {
   if (hourData.swellDirection[model]) {
     waveDirModel = model
   } else waveDirModel = 'sg'
+  console.log(hourData.waveHeight.sg)
 
   return (
     <View>
     { 
       hourData.swellHeight[model] ? <View style={styles.hourContainer}>
       
-      <View style={styles.viewCont}><Text style={styles.hourT}>{`${time} `}</Text></View>
+      <View style={styles.hourCont}><Text style={styles.hourT}>{`${time}`}</Text></View>
+      <View style={styles.viewCont}><Text style={styles.heightT}>{`${hourData.waveHeight.sg.toFixed(1)}m`}</Text></View>
       <View style={styles.swellCont}><Text style={styles.swellH}>
-        {`${hourData.swellHeight[model]}m @${Math.round(hourData.swellPeriod[model])}sec   ${getCardinalDirection(hourData.swellDirection[waveDirModel]+180)}  `}</Text></View>
+        {` ${hourData.swellHeight[model].toFixed(1)}m @${Math.round(hourData.swellPeriod[model])}sec   ${getCardinalDirection(hourData.swellDirection[waveDirModel]+180)}  `}</Text></View>
       <View style={styles.windCont}><Text style={styles.swellP}>{`${Math.round(hourData.windSpeed[windModel]*2.236)}k/h ${getCardinalDirection(hourData.windDirection[windModel]+180)}`}</Text></View>
     </View>
     : null
@@ -46,15 +48,21 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: 'white'
   },
+  hourCont: {
+    flex: 1,
+    width: 10,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   viewCont: {
     flex: 1,
-    width: 25,
+    width: 70,
     alignItems: 'flex-start',
     justifyContent: 'center'
   },
   swellCont: {
     flex: 1,
-    width: 130,
+    width: 140,
     alignItems: 'center'
 
   },
@@ -69,8 +77,16 @@ const styles = StyleSheet.create({
     padding: 1,
     fontSize: 18,
     fontWeight: '700',
-    
-
+    maxWidth: 70
+  
+  },
+  heightT: {
+    color: 'white',
+    padding: 1,
+    fontSize: 18,
+    fontWeight: '700',
+    maxWidth: 70
+  
   },
   waveH: {
     color: 'white',

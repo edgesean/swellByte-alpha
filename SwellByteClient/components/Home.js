@@ -22,7 +22,6 @@ const Home = ({ navigation }) => {
     waveDataFetch()
   }, [])
 
-  // isLoading && return <Loader></Loader>
   return (
     <ImageBackground source={image} style={styles.image}>
     <SafeAreaView  style={styles.safe}>
@@ -34,13 +33,13 @@ const Home = ({ navigation }) => {
             <Text style={styles.logoText}>SwellByte</Text>
           </View>
           
-          {allData.length ? <TouchableOpacity onPress={() => navigation.navigate('SpotDetails', {data: allData})}>
+          {allData.length ? 
             <View style={styles.spots}>
+             <TouchableOpacity onPress={() => navigation.navigate('SpotDetails', {data: allData})}> 
             <SpotPreview forecastData={allData}/>
-            </View>
-          </TouchableOpacity> : null}
-          
-          
+             </TouchableOpacity> 
+            </View> : null}
+                   
         </View>
         }
 
@@ -50,7 +49,6 @@ const Home = ({ navigation }) => {
 }
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
-
 
 const styles = StyleSheet.create({
   container: {
