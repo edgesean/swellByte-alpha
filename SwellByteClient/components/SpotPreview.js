@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 
 
-const SpotPreview = ({forecastData}) => {
+const SpotPreview = ({forecastData, name}) => {
 
   const currentTime = new Date().getHours();
   let height = 0;
@@ -10,12 +10,12 @@ const SpotPreview = ({forecastData}) => {
   let direction = 0;
   let windSpeed = 0;
   let windDir = 0;
-  let spotName = 'Bogatell';
+  let spotName = name;
   if (forecastData.length) {
-    height = forecastData[currentTime].waveHeight.icon;
-    period = forecastData[currentTime].swellPeriod.icon;
+    height = forecastData[currentTime].waveHeight.sg;
+    period = forecastData[currentTime].swellPeriod.sg;
     direction = forecastData[currentTime].swellDirection.icon;
-    windSpeed = Math.round(forecastData[currentTime].windSpeed.icon * 3.6);
+    windSpeed = Math.round(forecastData[currentTime].windSpeed.sg * 3.6);
     windDir = forecastData[currentTime].windDirection.icon;
   }
   
@@ -30,12 +30,13 @@ const SpotPreview = ({forecastData}) => {
 
         <View style={styles.waveContainer}>
           <Text style={styles.text}>{`${height} m`}</Text>
-          <Text style={{transform: [{rotate: `${direction + 90}deg`}], color: 'white', fontSize: 30, fontWeight: 'bold', width: 30}} >➔</Text>
+          <Text style={{transform: [{rotate: `${direction+90}deg`}], color: 'white', fontSize: 30, fontWeight: 'bold', width: 30}} >➔</Text>
         </View>
 
         <View style={styles.windContainer}>
             <Text style={styles.text}>{`${windSpeed} km/h`} </Text>
-            <Text style={{transform: [{rotate: `${windDir + 90}deg`}], color: 'white', fontSize: 30, fontWeight: 'bold', width: 30}} >➔</Text>
+
+            <Text style={{transform: [{rotate: `${windDir}deg`}], color: 'white', fontSize: 30, fontWeight: 'bold', width: 30}} >➔</Text>
         </View>
 
       </View>     

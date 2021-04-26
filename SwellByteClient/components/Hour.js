@@ -16,7 +16,7 @@ const Hour = ({hourData, model}) => {
   if (hourData.swellDirection[model]) {
     waveDirModel = model
   } else waveDirModel = 'sg'
-  console.log(hourData.waveHeight.sg)
+
 
   return (
     <View>

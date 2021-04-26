@@ -6,16 +6,16 @@ const Login = ({ navigation }) => {
   const image = { uri: 'https://i.imgur.com/clZpR3S.png'}
   return (
     <ImageBackground source={image} style={styles.image}>
-      <View>
+      <View style={{marginBottom: 5}}>
           <View style={styles.logoView}><Text style={styles.logoText}>SwellByte</Text>
-        <Image source={swellLogo} style={{width:107, height:99}}/>
+        <Image source={swellLogo} style={{width:107, height:99,}}/>
         </View>
 
         <View style={styles.login}>
           
             <View>
               <View style={styles.emailCont}>
-                <TextInput style={styles.inputText} autoCorrect={false} placeholder="Email"/>
+                <TextInput textContentType="emailAddress" style={styles.inputText} autoCorrect={false} placeholder="Email"/>
               </View>
               <View style={styles.passCont}>
                 <TextInput secureTextEntry={true} style={styles.inputText}  placeholder="Password"/>
@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: 200,
+    margin: 30,
   },
   signIn: {
     borderRadius: 15,

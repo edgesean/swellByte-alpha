@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import Home from './components/Home';
 import SpotDetails from './components/SpotDetails';
 import Login from './components/Login';
@@ -11,13 +11,15 @@ const Stack = createStackNavigator();
 
 export default function App() {
   return (
+        // <SafeAreaView>
       <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Login" component={Login} options={{headerShown: false}}/>
-          <Stack.Screen name="Home" component={Home} options={{headerShown: false}}/>
-          <Stack.Screen name="SpotDetails" component={SpotDetails} options={{headerShown: false}}/>
-        </Stack.Navigator>
+           <Stack.Navigator>
+            <Stack.Screen name="Login" component={Login} options={{headerShown: false}}/>
+            <Stack.Screen name="Home" component={Home} options={{headerShown: false}}/>
+            <Stack.Screen name="SpotDetails" component={SpotDetails} options={{headerShown: false}}/>
+          </Stack.Navigator>
       </NavigationContainer>  
+ 
       
   );
 }

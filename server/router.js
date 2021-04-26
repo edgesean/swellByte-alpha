@@ -6,6 +6,8 @@ router.get('/buoy', buoy.getBuoyData);
 router.get('/load', buoy.sendBuoyData);
 router.get('/loadApi', api.sendApiData);
 router.get('/getApiData', api.getApiData);
+router.get('/loadMaresme', api.loadApiMaresme);
+router.get('/getApiMaresme', api.getApiMaresme);
 
 
 

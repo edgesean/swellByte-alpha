@@ -4,14 +4,25 @@ import SpotPreview from './SpotPreview'
 import { EXPO_API_URL } from '@env';
 const Home = ({ navigation }) => {
 
-  const [allData, setAllData] = useState([])
+  const [bcnData, setBcnData] = useState([])
+  const [maresmeData, setMaresme] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const image = { uri: 'https://i.imgur.com/clZpR3S.png'}
 
-  const waveDataFetch = async () => {
+  const BCNwaveDataFetch = async () => {
     let response = await fetch(EXPO_API_URL);
     let json = await response.json();
-    setAllData(json[json.length-1].swellData.hours);
+    setBcnData(json[json.length-1].swellData.hours);
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 300)   
+    return
+  }
+
+  const MaresmeDataFetch = async () => {
+    let response = await fetch('http://192.168.1.169:3003/getApiMaresme');
+    let json = await response.json();
+    setMaresme(json[json.length-1].swellData.hours);
     setTimeout(() => {
       setIsLoading(false)
     }, 300)   
@@ -19,7 +30,8 @@ const Home = ({ navigation }) => {
   }
   
   useEffect(() => {
-    waveDataFetch()
+    BCNwaveDataFetch()
+    MaresmeDataFetch()
   }, [])
 
   return (
@@ -33,11 +45,14 @@ const Home = ({ navigation }) => {
             <Text style={styles.logoText}>SwellByte</Text>
           </View>
           
-          {allData.length ? 
+          {maresmeData.length ? 
             <View style={styles.spots}>
-             <TouchableOpacity onPress={() => navigation.navigate('SpotDetails', {data: allData})}> 
-            <SpotPreview forecastData={allData}/>
-             </TouchableOpacity> 
+             <TouchableOpacity onPress={() => navigation.navigate('SpotDetails', {data: bcnData})}> 
+            <SpotPreview forecastData={bcnData} name={'Bogatell'}/>
+             </TouchableOpacity>
+             <TouchableOpacity onPress={() => navigation.navigate('SpotDetails', {data: maresmeData})}> 
+            <SpotPreview forecastData={maresmeData} name={'Vilassar'}/>
+             </TouchableOpacity>  
             </View> : null}
                    
         </View>

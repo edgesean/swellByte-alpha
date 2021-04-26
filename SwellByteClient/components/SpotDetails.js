@@ -73,6 +73,7 @@ const SpotDetails = ({ route, navigation }) => {
 
   return (
     <ImageBackground source={image} style={styles.image}>
+      <SafeAreaView>
       {isLoading ?
         <Text>Loading...</Text> :
           <SafeAreaView style={styles.safeArea}>
@@ -86,8 +87,8 @@ const SpotDetails = ({ route, navigation }) => {
                   <Text style={{color: 'white', fontSize: 25, fontWeight: 'bold', width: 95, margin: 5}}>{`${waveHeight[selectedModel].toFixed(1)}m`}</Text>
                   <Text style={{color: 'white', fontSize: 15, fontWeight: 'bold', width: 124, margin: 5}}>{`${swellHeight[selectedModel]}m@${Math.round(swellPeriod[selectedModel])}sec`}</Text>
                   <View style={{flexDirection: 'row'}}>
-                  <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold', width: 25, margin: 5}}>{getCardinalDirection(swellDirection[selectedModel])}</Text>
-                  <Text style={{transform: [{rotate: `${swellDirection[selectedModel] + 90}deg`}], color: 'white', fontSize: 20, fontWeight: 'bold', width: 20, margin: 1}} > ➔ </Text>
+                  <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold', width: 35, margin: 5}}>{getCardinalDirection(swellDirection[selectedModel])}</Text>
+                  <Text style={{transform: [{rotate: `${swellDirection[selectedModel]+90}deg`}], color: 'white', fontSize: 20, fontWeight: 'bold', width: 20, margin: 1}} > ➔ </Text>
                   </View>
                 </View>
 
@@ -96,8 +97,8 @@ const SpotDetails = ({ route, navigation }) => {
                   <Text style={{color: 'white', fontSize: 25, fontWeight: 'bold', width: 95, margin: 5}}>{`${Math.round(currentWindSpeed*3.6)}km/h`}</Text>
                   <Text style={{color: 'white', fontSize: 15, fontWeight: 'bold', width: 65, margin: 5}}>{`${Math.round(currentWindSpeed*3.6)+5}km/h`}</Text>
                   <View style={{flexDirection: 'row'}}>
-                  <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold', width: 30, margin: 5}}>{getCardinalDirection(currentWindDir)}</Text>
-                  <Text style={{transform: [{rotate: `${currentWindDir + 90}deg`}], color: 'white', fontSize: 20, fontWeight: 'bold', width: 20, margin: 1}} > ➔ </Text>
+                  <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold', width: 30, margin: 5}}>{getCardinalDirection(currentWindDir-90)}</Text>
+                  <Text style={{transform: [{rotate: `${currentWindDir }deg`}], color: 'white', fontSize: 20, fontWeight: 'bold', width: 20, margin: 1}} > ➔ </Text>
                   </View>
 
                 </View>
@@ -112,7 +113,7 @@ const SpotDetails = ({ route, navigation }) => {
 
                   <View style={styles.button}>
                     <RNPickerSelect style={picker} value={selectedModel}
-                      onValueChange={(value) => setModel(value)}
+                      onValueChange={(value) => value == null ? setModel('icon') : setModel(value)}
                       items={[
                           { label: 'icon', value: 'icon' },
                           { label: 'meteo', value: 'meteo' },
@@ -125,18 +126,20 @@ const SpotDetails = ({ route, navigation }) => {
               </View>
    
             </View>
-            
+            <View style={styles.flatListCont}>
               <FlatList
               data={daysArr}
               renderItem={({item}) => item[6].waveHeight[selectedModel]?<DayForecast dayData={item} model={selectedModel}></DayForecast> : null}
               keyExtractor={item => item[0]._id}
             />
-            
+            </View>
               
-            <Text>-</Text>
+            
+             
 
           </SafeAreaView>
       }
+      </SafeAreaView>
     </ImageBackground>
   )
 }
@@ -161,8 +164,8 @@ const styles = StyleSheet.create({
   currentContainer: {
     flexDirection: 'column',
     width: windowWidth-10,
-    height: 190,
-    
+    // height: 190,
+    height: windowHeight*.25,
     justifyContent: 'flex-start',
     alignItems: 'center',
     color: 'white',
@@ -229,7 +232,11 @@ const styles = StyleSheet.create({
     height: 55,
     width: 20,
     color: 'white',
-  }
+  },
+  flatListCont: {
+    marginTop: 5,
+    height: windowHeight*.75
+  },
 
 })
 

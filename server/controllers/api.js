@@ -1,4 +1,5 @@
 const ApiData = require('../models/api');
+const ApiMaresme = require('../models/apiMaresme');
 const fetch = require("node-fetch");
 require('dotenv').config();
 
@@ -29,6 +30,33 @@ const sendApiData = async (req, res) => {
   }
 }
 
+  const loadApiMaresme = async (req, res) => {
+    const waveData = await apiFetch(41.4932, 2.4014)
+
+    const apiDataObj = {
+      swellData: waveData,
+      timeStamp: Date.now()
+    }
+  
+    try {
+      await ApiMaresme.create(apiDataObj)
+      res.send('worked')
+      
+    } catch (error) {
+      console.log(error);
+    }
+
+  }
+
+  const getApiMaresme = async (req, res) => {
+    try {
+      const waveData = await ApiMaresme.find();
+      res.send(waveData);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
 const apiFetch = async (lat, lng) => {
 const params = 'swellHeight,swellPeriod,swellDirection,waveHeight,windSpeed,windDirection';
 
@@ -42,4 +70,4 @@ const params = 'swellHeight,swellPeriod,swellDirection,waveHeight,windSpeed,wind
 
 }
 
-module.exports = {getApiData, sendApiData};
+module.exports = {getApiData, sendApiData, loadApiMaresme, getApiMaresme};
