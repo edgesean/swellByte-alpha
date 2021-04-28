@@ -33,7 +33,7 @@ const SpotDetails = ({ route, navigation }) => {
   })
 
   const buoyFetch = async () => {
-    let response = await fetch(EXPO_BUOY_DATA);
+    let response = await fetch('https://swellbyte.herokuapp.com/buoy');
     let jsonData = await response.json();
     const nowCastTime = forecastData[currentTime];
     setMyState({...nowCastTime})

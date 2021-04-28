@@ -34,7 +34,10 @@ const sendApiData = async (req, res) => {
 
   try {
     await ApiData.create(apiDataObj)
-    res.send('worked')
+    if (req) {
+     res.send('worked') 
+    }
+    
     
   } catch (error) {
     console.log(error);
@@ -51,7 +54,10 @@ const sendApiData = async (req, res) => {
   
     try {
       await ApiMaresme.create(apiDataObj)
-      res.send('worked')
+      if (req) {
+       res.send('worked') 
+      }
+      
       
     } catch (error) {
       console.log(error);
@@ -76,7 +82,10 @@ const sendApiData = async (req, res) => {
     }  
     try {
       await ApiNh.create(apiDataObj)
-      res.send('worked')
+      if (req) {
+        res.send('worked')
+      }
+      
       
     } catch (error) {
       console.log(error);

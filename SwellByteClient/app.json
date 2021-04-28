@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "SwellByteClient",
-    "slug": "SwellByteClient",
+    "name": "SwellByte",
+    "slug": "swellbyte",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -17,7 +17,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false,
+      "bundleIdentifier": "com.seandevbcn.swellbyte"
     },
     "android": {
       "adaptiveIcon": {
@@ -27,6 +28,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": ""
   }
 }

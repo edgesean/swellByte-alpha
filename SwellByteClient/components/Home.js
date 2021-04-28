@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { TouchableOpacity, StyleSheet, Text, View, SafeAreaView, ImageBackground, Dimensions } from 'react-native';
 import SpotPreview from './SpotPreview'
 import { EXPO_API_URL } from '@env';
+import { Ionicons } from '@expo/vector-icons';
 const Home = ({ navigation }) => {
 
   const [bcnData, setBcnData] = useState([])
@@ -11,7 +12,7 @@ const Home = ({ navigation }) => {
   const image = { uri: 'https://i.imgur.com/clZpR3S.png'}
 
   const BCNwaveDataFetch = async () => {
-    let response = await fetch(EXPO_API_URL);
+    let response = await fetch('https://swellbyte.herokuapp.com/getApiData');
     let json = await response.json();
     setBcnData(json[json.length-1].swellData.hours);
     setTimeout(() => {
@@ -21,7 +22,7 @@ const Home = ({ navigation }) => {
   }
 
   const NhDataFetch = async () => {
-    let response = await fetch('http://192.168.1.169:3003/getNh');
+    let response = await fetch('https://swellbyte.herokuapp.com/getNh');
     let json = await response.json();
     setNh(json[json.length-1].swellData.hours);
     setTimeout(() => {
@@ -31,7 +32,7 @@ const Home = ({ navigation }) => {
   }
 
   const MaresmeDataFetch = async () => {
-    let response = await fetch('http://192.168.1.169:3003/getApiMaresme');
+    let response = await fetch('https://swellbyte.herokuapp.com/getApiMaresme');
     let json = await response.json();
     setMaresme(json[json.length-1].swellData.hours);
     setTimeout(() => {
@@ -55,7 +56,10 @@ const Home = ({ navigation }) => {
         <Text>loading...</Text>  :
         <View style={styles.container}>
           <View style={styles.logo}>
-            <Text style={styles.logoText}>SwellByte</Text>
+            <View style={{justifyContent: 'flex-start', alignItems: 'flex-start', marginStart: 5, flex: 1}}><Ionicons name="search" size={30} color="white" /></View>
+            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}></View><Text style={styles.logoText}>SwellByte</Text>
+            <View style={{justifyContent: 'flex-end', alignItems: 'flex-end', flex: 1, marginEnd: 5 }}><Ionicons name="ios-menu" size={32} color="white" /></View>
+            
           </View>
           
           {maresmeData.length ? 
@@ -105,10 +109,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   logo: {
-
+    flexDirection: 'row',
     margin: 5,
     padding: 5,
-    width: '40%',
+    width: '100%',
     textAlign: 'center',
     color: 'white',
   },
@@ -117,6 +121,8 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: 'bold',
     color: 'white',
+    textAlign: 'center',
+    width: '75%'
   },
   spots: {
     width: windowWidth-10,
