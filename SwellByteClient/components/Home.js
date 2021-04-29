@@ -3,13 +3,16 @@ import { TouchableOpacity, StyleSheet, Text, View, SafeAreaView, ImageBackground
 import SpotPreview from './SpotPreview'
 import { EXPO_API_URL } from '@env';
 import { Ionicons } from '@expo/vector-icons';
+import RNPickerSelect from 'react-native-picker-select';
 const Home = ({ navigation }) => {
 
   const [bcnData, setBcnData] = useState([])
   const [maresmeData, setMaresme] = useState([])
   const [nhData, setNh] = useState([])
   const [isLoading, setIsLoading] = useState(true)
-  const image = { uri: 'https://i.imgur.com/clZpR3S.png'}
+  const [units, setUnits] = useState('eu')
+  const image = { uri: 'https://i.imgur.com/Zs5yNSP.png'}
+
 
   const BCNwaveDataFetch = async () => {
     let response = await fetch('https://swellbyte.herokuapp.com/getApiData');
@@ -56,22 +59,29 @@ const Home = ({ navigation }) => {
         <Text>loading...</Text>  :
         <View style={styles.container}>
           <View style={styles.logo}>
-            <View style={{justifyContent: 'flex-start', alignItems: 'flex-start', marginStart: 5, flex: 1}}><Ionicons name="search" size={30} color="white" /></View>
-            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}></View><Text style={styles.logoText}>SwellByte</Text>
             <View style={{justifyContent: 'flex-end', alignItems: 'flex-end', flex: 1, marginEnd: 5 }}><Ionicons name="ios-menu" size={32} color="white" /></View>
-            
+            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}></View><Text style={styles.logoText}>SwellByte</Text>           
+            <View style={{justifyContent: 'flex-start', alignItems: 'flex-start', marginStart: 5, flex: 1, paddingTop: 10}}>
+            <RNPickerSelect value={units} style={{color: 'white', fontSize: 18}}
+                      onValueChange={(value) => value == null ? setUnits('eu') : setUnits(value)}
+                      items={[
+                          { label: 'EU', value: 'eu' },
+                          { label: 'US', value: 'us' },
+                      ]}
+                    />
+            </View>
           </View>
           
           {maresmeData.length ? 
             <View style={styles.spots}>
              <TouchableOpacity onPress={() => navigation.navigate('SpotDetails', {data: bcnData})}> 
-            <SpotPreview forecastData={bcnData} name={'Bogatell'}/>
+            <SpotPreview forecastData={bcnData} name={'Bogatell'} units={units}/>
              </TouchableOpacity>
              <TouchableOpacity onPress={() => navigation.navigate('SpotDetails', {data: maresmeData})}> 
-            <SpotPreview forecastData={maresmeData} name={'Vilassar'}/>
+            <SpotPreview forecastData={maresmeData} name={'Vilassar'} units={units}/>
              </TouchableOpacity>
              <TouchableOpacity onPress={() => navigation.navigate('SpotDetails', {data: nhData})}> 
-            <SpotPreview forecastData={nhData} name={'Hampton'}/>
+            <SpotPreview forecastData={nhData} name={'Hampton'} units={units}/>
              </TouchableOpacity>    
             </View> : null}
                    

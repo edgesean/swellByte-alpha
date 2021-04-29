@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, SafeAreaView, ImageBackground } from 'react-nat
 import Hampton from '../images/hampotn1.png'
 import Vilassar from '../images/vilssar.png'
 
-const SpotPreview = ({forecastData, name}) => {
+const SpotPreview = ({forecastData, name, units}) => {
 
   let image = {uri: 'https://www.barcelona.cat/sites/all/static/platges/clabsa/camara6.jpg'}
   if (name === 'Bogatell') {
@@ -25,6 +25,14 @@ const SpotPreview = ({forecastData, name}) => {
     windSpeed = Math.round(forecastData[currentTime].windSpeed.sg * 3.6);
     windDir = forecastData[currentTime].windDirection.icon;
   }
+
+    if (units === 'us') {
+      windSpeed = Math.round(windSpeed*0.62)
+      height = Math.round(height*3.28)
+
+    }
+
+
   
   return (
 
@@ -39,12 +47,12 @@ const SpotPreview = ({forecastData, name}) => {
           <View style={styles.forecastFlex}>
 
             <View style={styles.waveContainer}>
-              <Text style={styles.text}>{`${height.toFixed(1)} m`}</Text>
+              <Text style={styles.text}>{`${height.toFixed(1)} ${units === 'us' ? 'ft' : 'm'}`}</Text>
               <Text style={{transform: [{rotate: `${direction+90}deg`}], color: 'white', fontSize: 30, fontWeight: 'bold', width: 30}} >➔</Text>
             </View>
 
             <View style={styles.windContainer}>
-                <Text style={styles.text}>{`${windSpeed.toFixed()} km/h`} </Text>
+                <Text style={styles.text}>{`${windSpeed.toFixed()} ${units === 'us' ? 'mph' : 'km/h'}`} </Text>
 
                 <Text style={{transform: [{rotate: `${windDir}deg`}], color: 'white', fontSize: 30, fontWeight: 'bold', width: 30}} >➔</Text>
             </View>

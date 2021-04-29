@@ -3,7 +3,7 @@ import { TouchableOpacity, StyleSheet, Text, View, SafeAreaView, ImageBackground
 import swellLogo from '../images/wave.png'
 
 const Login = ({ navigation }) => {
-  const image = { uri: 'https://i.imgur.com/clZpR3S.png'}
+  const image = { uri: 'https://i.imgur.com/Zs5yNSP.png'}
   return (
     <ImageBackground source={image} style={styles.image}>
       <View style={{marginBottom: 5}}>

@@ -7,7 +7,7 @@ import RNPickerSelect from 'react-native-picker-select';
 
 const SpotDetails = ({ route, navigation }) => {
   const currentTime = new Date().getHours();
-  const image = { uri: 'https://i.imgur.com/clZpR3S.png'};
+  const image = { uri: 'https://i.imgur.com/Zs5yNSP.png'};
   const forecastData = route.params.data;
   const {
     waveHeight,
