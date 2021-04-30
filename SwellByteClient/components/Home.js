@@ -17,7 +17,7 @@ const Home = ({ navigation }) => {
   const BCNwaveDataFetch = async () => {
     let response = await fetch('https://swellbyte.herokuapp.com/getApiData');
     let json = await response.json();
-    setBcnData(json[json.length-1].swellData.hours);
+    setBcnData(json.swellData.hours);
     setTimeout(() => {
       setIsLoading(false)
     }, 300)   
@@ -27,7 +27,7 @@ const Home = ({ navigation }) => {
   const NhDataFetch = async () => {
     let response = await fetch('https://swellbyte.herokuapp.com/getNh');
     let json = await response.json();
-    setNh(json[json.length-1].swellData.hours);
+    setNh(json.swellData.hours);
     setTimeout(() => {
       setIsLoading(false)
     }, 300)   
@@ -37,17 +37,39 @@ const Home = ({ navigation }) => {
   const MaresmeDataFetch = async () => {
     let response = await fetch('https://swellbyte.herokuapp.com/getApiMaresme');
     let json = await response.json();
-    setMaresme(json[json.length-1].swellData.hours);
+    setMaresme(json.swellData.hours);
     setTimeout(() => {
       setIsLoading(false)
     }, 300)   
     return
   }
+  const allDataFEtch = async (isMounted) => {
+
+    try {
+      let response = await fetch('https://swellbyte.herokuapp.com/getAllApi')
+      let json = await response.json();
+      
+      if (isMounted) {
+        setBcnData(json[0].swellData.hours);
+        setMaresme(json[1].swellData.hours);
+        setNh(json[2].swellData.hours);
+        setIsLoading(false)
+      }
+      
+      
+    } catch (error) {
+      console.log(error)
+    }
+    
+    
+  }
   
   useEffect(() => {
-    BCNwaveDataFetch()
-    MaresmeDataFetch()
-    NhDataFetch()
+    let isMounted = true;
+    allDataFEtch(isMounted)
+    return () => {
+      isMounted = false
+    }
   }, [])
 
   return (
@@ -74,13 +96,13 @@ const Home = ({ navigation }) => {
           
           {maresmeData.length ? 
             <View style={styles.spots}>
-             <TouchableOpacity onPress={() => navigation.navigate('SpotDetails', {data: bcnData})}> 
+             <TouchableOpacity onPress={() => navigation.navigate('SpotDetails', {data: bcnData, units: units})}> 
             <SpotPreview forecastData={bcnData} name={'Bogatell'} units={units}/>
              </TouchableOpacity>
-             <TouchableOpacity onPress={() => navigation.navigate('SpotDetails', {data: maresmeData})}> 
+             <TouchableOpacity onPress={() => navigation.navigate('SpotDetails', {data: maresmeData, units: units})}> 
             <SpotPreview forecastData={maresmeData} name={'Vilassar'} units={units}/>
              </TouchableOpacity>
-             <TouchableOpacity onPress={() => navigation.navigate('SpotDetails', {data: nhData})}> 
+             <TouchableOpacity onPress={() => navigation.navigate('SpotDetails', {data: nhData, units: units})}> 
             <SpotPreview forecastData={nhData} name={'Hampton'} units={units}/>
              </TouchableOpacity>    
             </View> : null}

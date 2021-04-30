@@ -5,10 +5,11 @@ import DayForecast from './DayForecast';
 import buoy from '../images/buoy-icon-28.png'
 import RNPickerSelect from 'react-native-picker-select';
 
-const SpotDetails = ({ route, navigation }) => {
+const SpotDetails = ({ route, navigation}) => {
   const currentTime = new Date().getHours();
   const image = { uri: 'https://i.imgur.com/Zs5yNSP.png'};
   const forecastData = route.params.data;
+  const units = route.params.units;
   const {
     waveHeight,
     swellHeight,
@@ -85,7 +86,7 @@ const SpotDetails = ({ route, navigation }) => {
 
 
                 <View style={styles.currentLeft}>
-                  <Text style={{color: 'white', fontSize: 25, fontWeight: 'bold', width: 95, margin: 5}}>{`${waveHeight[selectedModel].toFixed(1)}m`}</Text>
+                  <Text style={{color: 'white', fontSize: 25, fontWeight: 'bold', width: 95, margin: 5}}>{units === 'eu' ? `${waveHeight[selectedModel].toFixed(1)}m` : `${(waveHeight[selectedModel]*3.28).toFixed(1)}ft` }</Text>
                   <Text style={{color: 'white', fontSize: 15, fontWeight: 'bold', width: 124, margin: 5}}>{`${swellHeight[selectedModel]}m@${Math.round(swellPeriod[selectedModel])}sec`}</Text>
                   <View style={{flexDirection: 'row'}}>
                   <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold', width: 65, margin: 5}}>{getCardinalDirection(swellDirection[selectedModel])}</Text>
@@ -130,7 +131,7 @@ const SpotDetails = ({ route, navigation }) => {
             <View style={styles.flatListCont}>
               <FlatList
               data={daysArr}
-              renderItem={({item}) => item[6].waveHeight[selectedModel]?<DayForecast dayData={item} model={selectedModel}></DayForecast> : null}
+              renderItem={({item}) => item[6].waveHeight[selectedModel]?<DayForecast dayData={item} model={selectedModel} units={units}></DayForecast> : null}
               keyExtractor={item => item[0]._id}
             />
             </View>

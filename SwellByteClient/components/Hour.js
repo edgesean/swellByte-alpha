@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import moment, { normalizeUnits } from 'moment'
 
-const Hour = ({hourData, model}) => {
+const Hour = ({hourData, model, units}) => {
   const time = moment(Date.parse(hourData.time)-7200000).format('h a')
   function getCardinalDirection(angle) {
     const directions = ['↓', '↙', '←', '↖', '↑', '↗', '→', '↘'];
@@ -25,10 +25,10 @@ const Hour = ({hourData, model}) => {
       hourData.swellHeight[model] ? <View style={styles.hourContainer}>
       
       <View style={styles.hourCont}><Text style={styles.hourT}>{`${time}`}</Text></View>
-      <View style={styles.viewCont}><Text style={styles.heightT}>{`${(hourData.waveHeight.sg*3.28).toFixed(1)}ft`}</Text></View>
+      <View style={styles.viewCont}><Text style={styles.heightT}>{units === 'us' ? `${(hourData.waveHeight.sg*3.28).toFixed(1)}ft` : `${(hourData.waveHeight.sg).toFixed(1)}m`}</Text></View>
       <View style={styles.swellCont}><Text style={styles.swellH}>
         {` ${(hourData.swellHeight[model]*3.28).toFixed(1)}ft @${Math.round(hourData.swellPeriod[model])}sec   ${getCardinalDirection(hourData.swellDirection[waveDirModel])}`}</Text></View>
-      <View style={styles.windCont}><Text style={styles.swellP}>{`${Math.round(hourData.windSpeed[windModel]*2.236)}mph ${getCardinalDirection(hourData.windDirection[windModel])}`}</Text></View>
+      <View style={styles.windCont}><Text style={styles.swellP}>{units === 'us' ? `${Math.round(hourData.windSpeed[windModel]*2.236)}mph ${getCardinalDirection(hourData.windDirection[windModel])}` : `${Math.round(hourData.windSpeed[windModel])}kmh ${getCardinalDirection(hourData.windDirection[windModel])}` }</Text></View>
     </View>
     : null
 
