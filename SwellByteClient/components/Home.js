@@ -4,7 +4,6 @@ import SpotPreview from './SpotPreview'
 import { EXPO_API_URL } from '@env';
 import { Ionicons } from '@expo/vector-icons';
 import RNPickerSelect from 'react-native-picker-select';
-import UserContext from '../Settings/UserContext';
 const Home = ({ navigation }) => {
 
   const [bcnData, setBcnData] = useState([])
