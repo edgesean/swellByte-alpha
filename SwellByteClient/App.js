@@ -6,19 +6,23 @@ import SpotDetails from './components/SpotDetails';
 import Login from './components/Login';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import UserContext from './Settings/UserContext';
+import { useContext } from 'react/cjs/react.production.min';
 
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
         // <SafeAreaView>
-      <NavigationContainer>
-           <Stack.Navigator>
-            <Stack.Screen name="Login" component={Login} options={{headerShown: false}}/>
-            <Stack.Screen name="Home" component={Home} options={{headerShown: false}}/>
-            <Stack.Screen name="SpotDetails" component={SpotDetails} options={{headerShown: false}}/>
-          </Stack.Navigator>
-      </NavigationContainer>  
+        
+          <NavigationContainer>
+            <Stack.Navigator>
+              <Stack.Screen name="Login" component={Login} options={{headerShown: false}}/>
+              <Stack.Screen name="Home" component={Home} options={{headerShown: false}}/>
+              <Stack.Screen name="SpotDetails" component={SpotDetails} options={{headerShown: false}}/>              
+            </Stack.Navigator>
+          </NavigationContainer>  
+      
  
       
   );

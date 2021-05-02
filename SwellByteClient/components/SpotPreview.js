@@ -42,6 +42,7 @@ const SpotPreview = ({forecastData, name, units}) => {
 
           
             <Text style={styles.title} >{spotName}</Text>
+            
         
 
           <View style={styles.forecastFlex}>

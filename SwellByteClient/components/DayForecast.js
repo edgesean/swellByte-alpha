@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Dimensions, FlatList } from 'react-native'
 import moment from 'moment'
 import Hour from './Hour';
 
-const DayForecast = ({ dayData, model }) => {
+const DayForecast = ({ dayData, model, units }) => {
   const swellDirection = dayData[0];
   const day = moment(Date.parse(dayData[0].time)).format('ddd')
   const sixAm = dayData[6];
@@ -23,7 +23,7 @@ const DayForecast = ({ dayData, model }) => {
       <View style={{borderBottomWidth: 1, borderBottomColor: 'white'}}>
         <Text style={{color: 'white', fontSize: 18, margin: 10,}}>{day}</Text>
 
-        {hoursArr.map((hour) => <Hour key={hour.time} hourData={hour} model={model}></Hour>)}
+        {hoursArr.map((hour) => <Hour key={hour.time} hourData={hour} model={model} units={units}></Hour>)}
         </View>
       
     </View>

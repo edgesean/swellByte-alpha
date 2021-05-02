@@ -1,9 +1,10 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import { TouchableOpacity, StyleSheet, Text, View, SafeAreaView, ImageBackground, Dimensions } from 'react-native';
 import SpotPreview from './SpotPreview'
 import { EXPO_API_URL } from '@env';
 import { Ionicons } from '@expo/vector-icons';
 import RNPickerSelect from 'react-native-picker-select';
+import UserContext from '../Settings/UserContext';
 const Home = ({ navigation }) => {
 
   const [bcnData, setBcnData] = useState([])
@@ -12,37 +13,6 @@ const Home = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [units, setUnits] = useState('eu')
   const image = { uri: 'https://i.imgur.com/Zs5yNSP.png'}
-
-
-  const BCNwaveDataFetch = async () => {
-    let response = await fetch('https://swellbyte.herokuapp.com/getApiData');
-    let json = await response.json();
-    setBcnData(json.swellData.hours);
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 300)   
-    return
-  }
-
-  const NhDataFetch = async () => {
-    let response = await fetch('https://swellbyte.herokuapp.com/getNh');
-    let json = await response.json();
-    setNh(json.swellData.hours);
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 300)   
-    return
-  }
-
-  const MaresmeDataFetch = async () => {
-    let response = await fetch('https://swellbyte.herokuapp.com/getApiMaresme');
-    let json = await response.json();
-    setMaresme(json.swellData.hours);
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 300)   
-    return
-  }
   const allDataFEtch = async (isMounted) => {
 
     try {
@@ -55,13 +25,10 @@ const Home = ({ navigation }) => {
         setNh(json[2].swellData.hours);
         setIsLoading(false)
       }
-      
-      
+    
     } catch (error) {
       console.log(error)
-    }
-    
-    
+    }  
   }
   
   useEffect(() => {
@@ -83,20 +50,21 @@ const Home = ({ navigation }) => {
           <View style={styles.logo}>
             <View style={{justifyContent: 'flex-end', alignItems: 'flex-end', flex: 1, marginEnd: 5 }}><Ionicons name="ios-menu" size={32} color="white" /></View>
             <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}></View><Text style={styles.logoText}>SwellByte</Text>           
-            <View style={{justifyContent: 'flex-start', alignItems: 'flex-start', marginStart: 5, flex: 1, paddingTop: 10}}>
-            <RNPickerSelect value={units} style={{color: 'white', fontSize: 18}}
-                      onValueChange={(value) => value == null ? setUnits('eu') : setUnits(value)}
-                      items={[
-                          { label: 'EU', value: 'eu' },
-                          { label: 'US', value: 'us' },
-                      ]}
-                    />
+            <View style={{justifyContent: 'flex-start', alignItems: 'flex-start', marginStart: 5, flex: 1, paddingTop: 10}}>            
+              <RNPickerSelect style={picker} value={units} 
+                        onValueChange={(value) => value == null ? setUnits('eu') : setUnits(value)}
+                        items={[
+                            { label: 'EU', value: 'eu' },
+                            { label: 'US', value: 'us' },
+                        ]}
+                      />            
             </View>
           </View>
           
           {maresmeData.length ? 
             <View style={styles.spots}>
-             <TouchableOpacity onPress={() => navigation.navigate('SpotDetails', {data: bcnData, units: units})}> 
+             <TouchableOpacity onPress={() => navigation.navigate('SpotDetails', {data: bcnData, units: units})}>
+               
             <SpotPreview forecastData={bcnData} name={'Bogatell'} units={units}/>
              </TouchableOpacity>
              <TouchableOpacity onPress={() => navigation.navigate('SpotDetails', {data: maresmeData, units: units})}> 
@@ -106,6 +74,7 @@ const Home = ({ navigation }) => {
             <SpotPreview forecastData={nhData} name={'Hampton'} units={units}/>
              </TouchableOpacity>    
             </View> : null}
+            
                    
         </View>
         }
@@ -164,5 +133,13 @@ const styles = StyleSheet.create({
   }
 
 });
+const picker = {
+  inputIOS: {
+    color: 'white',
+    border: 2,
+    fontSize: 14,
+    fontWeight: 'bold',
+  }
+}
 
 export default Home

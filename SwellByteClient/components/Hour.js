@@ -25,9 +25,14 @@ const Hour = ({hourData, model, units}) => {
       hourData.swellHeight[model] ? <View style={styles.hourContainer}>
       
       <View style={styles.hourCont}><Text style={styles.hourT}>{`${time}`}</Text></View>
-      <View style={styles.viewCont}><Text style={styles.heightT}>{units === 'us' ? `${(hourData.waveHeight.sg*3.28).toFixed(1)}ft` : `${(hourData.waveHeight.sg).toFixed(1)}m`}</Text></View>
-      <View style={styles.swellCont}><Text style={styles.swellH}>
-        {` ${(hourData.swellHeight[model]*3.28).toFixed(1)}ft @${Math.round(hourData.swellPeriod[model])}sec   ${getCardinalDirection(hourData.swellDirection[waveDirModel])}`}</Text></View>
+      
+      
+        <View style={styles.viewCont}>
+          <Text style={styles.heightT}>{units === 'us' ? `${(hourData.waveHeight.sg*3.28).toFixed(1)}ft` : `${(hourData.waveHeight.sg).toFixed(1)}m`}</Text>
+        </View>
+      <View style={styles.swellCont}>
+        <Text style={styles.swellH}>{units === 'us' ? `${(hourData.swellHeight[model]*3.28).toFixed(1)}ft @${Math.round(hourData.swellPeriod[model])}sec   ${getCardinalDirection(hourData.swellDirection[waveDirModel])}` : `${(hourData.swellHeight[model]).toFixed(1)}m @${Math.round(hourData.swellPeriod[model])}sec   ${getCardinalDirection(hourData.swellDirection[waveDirModel])}`}</Text>
+        </View>
       <View style={styles.windCont}><Text style={styles.swellP}>{units === 'us' ? `${Math.round(hourData.windSpeed[windModel]*2.236)}mph ${getCardinalDirection(hourData.windDirection[windModel])}` : `${Math.round(hourData.windSpeed[windModel])}kmh ${getCardinalDirection(hourData.windDirection[windModel])}` }</Text></View>
     </View>
     : null

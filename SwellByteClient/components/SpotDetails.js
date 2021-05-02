@@ -10,6 +10,7 @@ const SpotDetails = ({ route, navigation}) => {
   const image = { uri: 'https://i.imgur.com/Zs5yNSP.png'};
   const forecastData = route.params.data;
   const units = route.params.units;
+  
   const {
     waveHeight,
     swellHeight,
@@ -47,9 +48,9 @@ const SpotDetails = ({ route, navigation}) => {
     }
     setDays(dayGenerator(forecastData));    
     setBuoy(jsonData);
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 300)
+    
+    setIsLoading(false)
+    
     return
   }
  
@@ -71,23 +72,19 @@ const SpotDetails = ({ route, navigation}) => {
       //'N↑', 'NE↗', 'E→', 'SE↘', 'S↓', 'SW↙', 'W←', 'NW↖'
       return directions[Math.round(angle / 45) % 8];
     }
-    // console.log(daysArr)
+    
 
   return (
     <ImageBackground source={image} style={styles.image}>
       <SafeAreaView>
       {isLoading ?
         <Text></Text> :
-          <SafeAreaView style={styles.safeArea}>
-            
+          <SafeAreaView style={styles.safeArea}>            
             <View style={styles.currentContainer}>
-
               <View style={styles.wavesAndWind}>
-
-
                 <View style={styles.currentLeft}>
-                  <Text style={{color: 'white', fontSize: 25, fontWeight: 'bold', width: 95, margin: 5}}>{units === 'eu' ? `${waveHeight[selectedModel].toFixed(1)}m` : `${(waveHeight[selectedModel]*3.28).toFixed(1)}ft` }</Text>
-                  <Text style={{color: 'white', fontSize: 15, fontWeight: 'bold', width: 124, margin: 5}}>{`${swellHeight[selectedModel]}m@${Math.round(swellPeriod[selectedModel])}sec`}</Text>
+                  <Text style={{color: 'white', fontSize: 25, fontWeight: 'bold', width: 95, margin: 5, textAlign: 'left'}}>{units === 'eu' ? `${waveHeight[selectedModel].toFixed(1)}m` : `${(waveHeight[selectedModel]*3.28).toFixed(1)}ft` }</Text>
+                  <Text style={{color: 'white', fontSize: 15, fontWeight: 'bold', width: 124, margin: 5, textAlign: 'left', paddingLeft: 15}}>{units === 'eu' ? `${swellHeight[selectedModel].toFixed(1)}m@${Math.floor(swellPeriod[selectedModel])}s` : `${(Math.round(waveHeight[selectedModel]*3.28))}ft@${Math.round(swellPeriod[selectedModel])}s` }</Text>
                   <View style={{flexDirection: 'row'}}>
                   <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold', width: 65, margin: 5}}>{getCardinalDirection(swellDirection[selectedModel])}</Text>
                   {/* <Text style={{transform: [{rotate: `${swellDirection[selectedModel]+90}deg`}], color: 'white', fontSize: 20, fontWeight: 'bold', width: 20, margin: 1}} > ➔ </Text> */}
@@ -96,12 +93,11 @@ const SpotDetails = ({ route, navigation}) => {
 
                 <View style={styles.currentRight}>
 
-                  <Text style={{color: 'white', fontSize: 25, fontWeight: 'bold', width: 95, margin: 5}}>{`${Math.round(currentWindSpeed*3.6)}km/h`}</Text>
-                  <Text style={{color: 'white', fontSize: 15, fontWeight: 'bold', width: 65, margin: 5}}>{`${Math.round(currentWindSpeed*3.6)+5}km/h`}</Text>
+                  <Text style={{color: 'white', fontSize: 25, fontWeight: 'bold', width: 95, margin: 5}}>{units === 'eu' ? `${Math.round(currentWindSpeed*3.6)}km/h` : `${Math.round(currentWindSpeed*2.23)}mph` }</Text>
+                  <Text style={{color: 'white', fontSize: 15, fontWeight: 'bold', width: 65, margin: 5}}>{units === 'eu' ? `${Math.round(currentWindSpeed*3.6)+5}km/h` : `${Math.round(currentWindSpeed*2.23)+5}mph` }</Text>
                   <View style={{flexDirection: 'row'}}>
                   <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold', width: 60, margin: 5}}>{getCardinalDirection(currentWindDir-90)}</Text>
-                  {/* <Text style={{transform: [{rotate: `${currentWindDir }deg`}], color: 'white', fontSize: 20, fontWeight: 'bold', width: 20, margin: 1}} > ➔ </Text> */}
-                  </View>
+                </View>
 
                 </View>
               </View >
@@ -110,8 +106,9 @@ const SpotDetails = ({ route, navigation}) => {
                   
                   <View style={styles.buoy}>
                     <Image source={buoy} style={{width:45, height:45}} />
-                    <Text style={{color: 'white', fontSize: 15, fontWeight: 'bold', width: 124, margin: 5}}>{`${buoyData.height}@${Math.round(+buoyData.period)}sec`}</Text>
+                    <Text style={{color: 'white', fontSize: 15, fontWeight: 'bold', width: 124, margin: 5}}>{units === 'eu' ? `${buoyData.height}m@${Math.round(+buoyData.period)}sec` : `${Math.round(buoyData.height*3.2)}ft@${Math.round(+buoyData.period)}sec`}</Text>
                   </View>
+                  
 
                   <View style={styles.button}>
                     <RNPickerSelect style={picker} value={selectedModel}
@@ -135,9 +132,6 @@ const SpotDetails = ({ route, navigation}) => {
               keyExtractor={item => item[0]._id}
             />
             </View>
-              
-            
-             
 
           </SafeAreaView>
       }
@@ -166,7 +160,7 @@ const styles = StyleSheet.create({
   currentContainer: {
     flexDirection: 'column',
     width: windowWidth-10,
-    // height: 190,
+
     height: windowHeight*.25,
     justifyContent: 'flex-start',
     alignItems: 'center',
@@ -176,9 +170,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 127,
     width: 367,
-    
     color: 'white',
-
   },
   currentLeft: {
     flex: 1,
@@ -187,10 +179,7 @@ const styles = StyleSheet.create({
     height: 123,
     justifyContent: 'center',
     alignItems: 'center',
-    
     color: 'white',
-    
-
   },
   currentRight: {
     flex: 1,
@@ -198,18 +187,15 @@ const styles = StyleSheet.create({
     width: 50,
     height: 123,
     justifyContent: 'center',
-    alignItems: 'center',
-    
+    alignItems: 'center',    
     color: 'white',
 
   },
   dayContainer: {
     flexDirection: 'row',
     width: windowWidth-10,
-    height: 160,
-    
+    height: 160,   
     color: 'white',
-
   },
   buoyButtonView: {
     flexDirection: 'row',
@@ -233,7 +219,6 @@ const styles = StyleSheet.create({
     height: 55,
     width: 20,
     color: 'white',
-    
   },
   flatListCont: {
     marginTop: 5,
