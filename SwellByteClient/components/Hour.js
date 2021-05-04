@@ -17,18 +17,20 @@ const Hour = ({hourData, model, units}) => {
   if (hourData.swellDirection[model]) {
     waveDirModel = model
   } else waveDirModel = 'sg'
+  let height = hourData.waveHeight[model]
+  if (!hourData.waveHeight[model]) { height = hourData.waveHeight.sg}
 
 
   return (
     <View>
     { 
+      
       hourData.swellHeight[model] ? <View style={styles.hourContainer}>
       
       <View style={styles.hourCont}><Text style={styles.hourT}>{`${time}`}</Text></View>
-      
-      
+
         <View style={styles.viewCont}>
-          <Text style={styles.heightT}>{units === 'us' ? `${(hourData.waveHeight.sg*3.28).toFixed(1)}ft` : `${(hourData.waveHeight.sg).toFixed(1)}m`}</Text>
+          <Text style={styles.heightT}>{units === 'us' ? `${(height*3.28).toFixed(1)}ft` : `${(height).toFixed(1)}m`}</Text>
         </View>
       <View style={styles.swellCont}>
         <Text style={styles.swellH}>{units === 'us' ? `${(hourData.swellHeight[model]*3.28).toFixed(1)}ft @${Math.round(hourData.swellPeriod[model])}sec   ${getCardinalDirection(hourData.swellDirection[waveDirModel])}` : `${(hourData.swellHeight[model]).toFixed(1)}m @${Math.round(hourData.swellPeriod[model])}sec   ${getCardinalDirection(hourData.swellDirection[waveDirModel])}`}</Text>

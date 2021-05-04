@@ -20,7 +20,7 @@ const SpotDetails = ({ route, navigation}) => {
   } = forecastData[currentTime];
   const [buoyData, setBuoy] = useState('');
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedModel, setModel] = useState('sg');
+  const [selectedModel, setModel] = useState('icon');
   const [currentWindSpeed, setSpeed] = useState('');
   const [currentWindDir, setWindDir] = useState('');
   const [daysArr, setDays] = useState([]);
@@ -87,7 +87,6 @@ const SpotDetails = ({ route, navigation}) => {
                   <Text style={{color: 'white', fontSize: 15, fontWeight: 'bold', width: 124, margin: 5, textAlign: 'left', paddingLeft: 15}}>{units === 'eu' ? `${swellHeight[selectedModel].toFixed(1)}m@${Math.floor(swellPeriod[selectedModel])}s` : `${(Math.round(waveHeight[selectedModel]*3.28))}ft@${Math.round(swellPeriod[selectedModel])}s` }</Text>
                   <View style={{flexDirection: 'row'}}>
                   <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold', width: 65, margin: 5}}>{getCardinalDirection(swellDirection[selectedModel])}</Text>
-                  {/* <Text style={{transform: [{rotate: `${swellDirection[selectedModel]+90}deg`}], color: 'white', fontSize: 20, fontWeight: 'bold', width: 20, margin: 1}} > ➔ </Text> */}
                   </View>
                 </View>
 
