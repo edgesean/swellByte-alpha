@@ -17,8 +17,8 @@ const Hour = ({hourData, model, units}) => {
   if (hourData.swellDirection[model]) {
     waveDirModel = model
   } else waveDirModel = 'sg'
-  let height = hourData.waveHeight[model]
-  if (!hourData.waveHeight[model]) { height = hourData.waveHeight.sg}
+  const height =  hourData.waveHeight[model] ? hourData.waveHeight[model] : hourData.waveHeight.sg;
+  
 
 
   return (
