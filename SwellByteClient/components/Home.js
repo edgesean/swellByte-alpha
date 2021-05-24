@@ -6,6 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import RNPickerSelect from 'react-native-picker-select';
 const Home = ({ navigation }) => {
 
+  const [fuerteData, setFuerte] = useState([])
   const [bcnData, setBcnData] = useState([])
   const [maresmeData, setMaresme] = useState([])
   const [nhData, setNh] = useState([])
@@ -22,6 +23,7 @@ const Home = ({ navigation }) => {
         setBcnData(json[0].swellData.hours);
         setMaresme(json[1].swellData.hours);
         setNh(json[2].swellData.hours);
+        setFuerte(json[3].swellData.hours);
         setIsLoading(false)
       }
     
@@ -71,7 +73,10 @@ const Home = ({ navigation }) => {
              </TouchableOpacity>
              <TouchableOpacity onPress={() => navigation.navigate('SpotDetails', {data: nhData, units: units})}> 
             <SpotPreview forecastData={nhData} name={'Hampton'} units={units}/>
-             </TouchableOpacity>    
+             </TouchableOpacity>
+             <TouchableOpacity onPress={() => navigation.navigate('SpotDetails', {data: fuerteData, units: units})}> 
+            <SpotPreview forecastData={nhData} name={'Cotillo'} units={units}/>
+             </TouchableOpacity>     
             </View> : null}
             
                    
