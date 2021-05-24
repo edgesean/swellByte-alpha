@@ -8,3 +8,10 @@
 <img src="https://i.imgur.com/tTWvQtL.png" alt="drawing" width="300"/>
 
 <img src="https://i.imgur.com/rC8xqck.png" alt="drawing" width="300"/>
+
+
+# Getting Started
+
+  1. To contribute to swell byte first fork the repo and clone locally
+  2. Install dependencies with ```npm i ```
+  3. Start app locally with ```node start```
